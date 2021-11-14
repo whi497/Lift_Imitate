@@ -50,13 +50,14 @@ private:
 	int D2;
 	int D3;
 	int State;
-	int Rstate;
-	int Ostate;
+	int Rstate;//上升或下降用于判断加速减速平稳运行的状态
+	int Ostate;//待机与否状态
 public:
-	int waitstate;
-	int upfloor;
-	int downfloor;
+	int waitstate;//到达目的楼层运行状态
+	int upfloor;//将上行目的楼层
+	int downfloor;//将下行目的楼层
 	LiftN();
+	//私有成员获取与置数
 	int get_Floor() { return Floor; }
 	int get_state() { return State; }
 	int get_Rstate() { return Rstate; }
@@ -64,29 +65,30 @@ public:
 	Status change_Rstate(int s) { Rstate = s; return OK; }
 	Status change_state(int s) { State = s; return OK; }
 	Status change_Ostate(int s) { Ostate = s; return OK; }
+	//
 	Status UpFloor();
-	Status DownFloor(int n);
+	Status DownFloor();
 	Status Back();
 	Status Waitin() { State = Idle; return OK; }
 	Status Opendoor();
 	Status Closedoor(); 
 };
 
-typedef struct H {
+typedef struct H {//指令节点
 	int F;
 	int arrow;
 	struct H* next;
 	H();
 }*pHNode;
 
-struct LiftROrder {
+struct LiftROrder {//指令链表
 	pHNode head;
 	LiftROrder();
 	int get_arrow() { return head->next->arrow; }
 	int get_Ofloor() { return head->next->F; }
-	Status OrderInsert(int n,int sta);
+	Status OrderInsert(int n,int sta);//根据楼层方向智能插入指令链表
 	Status OrderDone();
 	int OrderNull();
 };
 
-int CrRandom(int min, int max);
+int CrRandom(int min, int max);//随机数生成

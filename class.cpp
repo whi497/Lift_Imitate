@@ -60,11 +60,9 @@ Status LiftN::UpFloor()
 	return OK;
 }
 
-Status LiftN::DownFloor(int n)
+Status LiftN::DownFloor()
 {
-	if (Floor - n < 0)exit(ERROR);
-	State = GoingDown;
-	Floor -= n;
+	Floor--;
 	return OK;
 }
 

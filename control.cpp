@@ -27,55 +27,73 @@ Status ConCenter::LiftH(Person* &p)
 	return OK;
 }
 
-Status ConCenter::LiftRun(float t)
+Status ConCenter::LiftRun(float t,int i)
 {
 	LiftIni();//对处于待命状态且有状态待完成的电梯初始化
-	if (Lift[0].get_state() == GoingUp) {
-		if (Lift[0].get_Rstate() == preste) {
-			Ltime.utime = t + uptime + prestetime;
-			Lift[0].change_Rstate(steady);
+	if (Lift[i].get_state() == GoingUp) {//执行上升指令
+		if (Lift[i].get_Rstate() == preste) {
+			Ltime[i].utime = t + uptime + prestetime;
+			Lift[i].change_Rstate(steady);
 		}
-		if (abs(Lift[0].get_Floor() - RunOrder[0].get_Ofloor()) == 1) {
-			Ltime.utime += prestetime;
+		if (abs(Lift[i].get_Floor() - RunOrder[i].get_Ofloor()) == 1) {
+			Ltime[i].utime += prestetime;
 		}
-		if (Lift[0].get_Floor() - RunOrder[0].get_Ofloor() == 0) {
-			Lift[0].change_state(Idle);
-			Lift[0].waitstate = 0;
+		if (t == Ltime[i].utime) {
+			Lift[i].UpFloor();
+			Ltime[i].utime += uptime;
 		}
-		if (t == Ltime.utime) {
-			Lift[0].UpFloor();
-			Ltime.utime += uptime;
+		if (Lift[i].get_Floor() - RunOrder[i].get_Ofloor() == 0) {
+			Lift[i].change_state(Idle);
+			Lift[i].change_Rstate(preste);
+			Lift[i].waitstate = 0;
 		}
 	}
-	if (Lift[0].get_state() == Idle) {
-		switch (Lift[0].waitstate) {
-		case 0: Lift[0].waitstate = 1; Ltime.opendotime = timeopen; Ltime.inouttime = t + 1; break;
-		case 1: if (t == Ltime.opendotime) {
-			if (peoinout(Stack[0][Lift[0].get_Floor()], List[Lift[0].get_Floor()][RunOrder[0].get_arrow()], t, 0) & (t - Ltime.inouttime > 30)) {
+	if(Lift[i].get_state() == GoingDown) {//执行下降指令
+		if (Lift[i].get_Rstate() == preste) {
+			Ltime[i].utime = t + downtime + prestetime;
+			Lift[i].change_Rstate(steady);
+		}
+		if (abs(Lift[i].get_Floor() - RunOrder[i].get_Ofloor()) == 1) {
+			Ltime[i].utime += prestetime;
+		}
+		if (t == Ltime[i].utime) {
+			Lift[i].DownFloor();
+			Ltime[i].utime += downtime;
+		}
+		if (Lift[i].get_Floor() - RunOrder[i].get_Ofloor() == 0) {
+			Lift[i].change_state(Idle);
+			Lift[i].change_Rstate(preste);
+			Lift[i].waitstate = 0;
+		}
+	}
+	if (Lift[i].get_state() == Idle) {//执行电梯在楼层停顿及乘客进出指令
+		switch (Lift[i].waitstate) {
+		case 0: Lift[i].waitstate = 1; Ltime[i].opendotime = timeopen; Ltime[i].inouttime = t + 1; break;
+		case 1: if (t == Ltime[i].opendotime) {
+			if (peoinout(Stack[i][Lift[i].get_Floor()], List[Lift[i].get_Floor()][RunOrder[i].get_arrow()], i, t) & (t - Ltime[i].inouttime > 30)) {
 				Lift->waitstate = 2;
-				Ltime.clodotime = t + closetime;
+				Ltime[i].clodotime = t + closetime;
 			}
 		}break;
-		case 2: if (t == Ltime.clodotime) {
-			if (RunOrder[0].head->next == NULL) {
-				Ltime.backtime = t + 30;
+		case 2: if (t == Ltime[i].clodotime) {
+			if (RunOrder[i].head->next == NULL) {
+				Ltime[i].backtime = t + 30;
 				Lift->waitstate = 3;
 			}
 			else {
-				if (RunOrder[0].get_arrow() == up)Lift[0].change_state(GoingUp);
-				if (RunOrder[0].get_arrow() == down)Lift[0].change_state(GoingDown);
-				Lift[0].change_Rstate(preste);
+				if (RunOrder[i].get_arrow() == up)Lift[i].change_state(GoingUp);
+				if (RunOrder[i].get_arrow() == down)Lift[i].change_state(GoingDown);
+				break;
 			}
-		}
-		case 3: if (t == Ltime.backtime) {
-			if (Lift[0].get_Floor() == 0);
-			if (Lift[0].get_Floor() != 0) {
-				Lift[0].change_state(GoingDown);
+		} break;
+		case 3: if (t == Ltime[i].backtime) {
+			if (Lift[i].get_Floor() == 0);
+			if (Lift[i].get_Floor() != 0) {
+				Lift[i].change_state(GoingDown);
 			}
 		} break;
 		default:exit(ERROR);
 		}
-		RunOrder[0].OrderDone();
 	}
 	return OK;
 }
@@ -94,19 +112,19 @@ Status ConCenter::LiftIni(){
 	return OK;
 }
 
-int ConCenter::peoinout(LiftStack& S, QueneList& L, int num, float t)
+int ConCenter::peoinout(LiftStack& S, QueneList& L, int i, float t)
 {
 	int check = 0;
-	if (Ltime.inouttime == t) {
-		if (S.top != S.base) {
+	if (Ltime[i].inouttime == t) {
+		if (S.top != S.base) {//电梯内人出栈
 			S.Pop();
-			Ltime.inouttime = iotime;
+			Ltime[i].inouttime = iotime;
 			check = 1;
 		}
-		else if (L.checknull()) {
+		else if (L.checknull()) {//先“出”后“进”
 			Person* P=L.Dequene();
-			Stack[num][P->get_OutFloor()].Push(P);
-			Ltime.inouttime = iotime;
+			Stack[i][P->get_OutFloor()].Push(P);
+			Ltime[i].inouttime = iotime;
 			check = 1;
 		}
 	}

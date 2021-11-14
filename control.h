@@ -6,7 +6,8 @@ using namespace std;
 
 class ConCenter {
 public:
-	Time Ltime;
+	Time Ltime[2];
+	Time Ctime;
 	LiftN Lift[2];
 	QueneList List[5][2];
 	LiftStack Stack[2][5];
@@ -18,7 +19,7 @@ public:
 	Status Inquene(QueneList& L, Person*& p, int& call);
 	int peoinout(LiftStack& S, QueneList& L, int num, float t);
 	Status LiftH(Person*& p);
-	Status LiftRun(float t);
+	Status LiftRun(float t, int i);
 	Status CheckOrder();
 	Status LiftIni();
 };

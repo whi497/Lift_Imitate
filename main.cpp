@@ -14,12 +14,13 @@ int main() {
 	Person* p;
 	cin >> MRuningtime;
 	while (time < MRuningtime && (++i+1)) {
-		if (Co.Ltime.intertime == time) {
-			p = Co.peoarrive(i, Co.Ltime.intertime);
+		if (Co.Ctime.intertime == time) {
+			p = Co.peoarrive(i, Co.Ctime.intertime);
             Co.Inquene(Co.List[p->get_InFloor()][p->get_arrow()], p, Co.Call[p->get_InFloor()][p->get_arrow()]);
 			Co.LiftH(p);
 		}
-		Co.LiftRun(time);
+		Co.LiftRun(time, 0);
+		Co.LiftRun(time, 1);
 		Co.CheckOrder();
 		time++;
 	}
