@@ -23,5 +23,6 @@ int main() {
 		Co.CheckOrder();
 		time++;
 	}
-
+	cout<<"µçÌÝÄ£Äâ½áÊø"<<endl;
+	return 0;
 }
