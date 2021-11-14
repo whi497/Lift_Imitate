@@ -20,6 +20,7 @@ public:
 	Status LiftH(Person*& p);
 	Status LiftRun(float t);
 	Status CheckOrder();
+	Status LiftIni();
 };
 
 int distList_Peo(LiftN& L, Person*& p);

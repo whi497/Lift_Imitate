@@ -51,6 +51,7 @@ private:
 	int D3;
 	int State;
 	int Rstate;
+	int Ostate;
 public:
 	int waitstate;
 	int upfloor;
@@ -59,15 +60,16 @@ public:
 	int get_Floor() { return Floor; }
 	int get_state() { return State; }
 	int get_Rstate() { return Rstate; }
+	int get_Ostate() { return Ostate; }
 	Status change_Rstate(int s) { Rstate = s; return OK; }
 	Status change_state(int s) { State = s; return OK; }
+	Status change_Ostate(int s) { Ostate = s; return OK; }
 	Status UpFloor();
 	Status DownFloor(int n);
 	Status Back();
 	Status Waitin() { State = Idle; return OK; }
 	Status Opendoor();
 	Status Closedoor(); 
-
 };
 
 typedef struct H {

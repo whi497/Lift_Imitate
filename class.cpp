@@ -48,6 +48,7 @@ LiftN::LiftN()
 	D3 = 0;
 	State = Idle;
 	Rstate = -1;
+	Ostate = WAIT;
 	waitstate = 0;
 	upfloor = 0;
 	downfloor = 0;

@@ -22,9 +22,12 @@
 #define downtime 4.1
 #define prestetime 2
 //
-#define GoingUp 1
-#define GoingDown -1
-#define Idle 0
+#define GoingUp 0
+#define GoingDown 1
+#define Idle -1
+//????
+#define WAIT 0
+#define RUN 1
 #define preste 1
 #define steady 0
 #define stop  -1

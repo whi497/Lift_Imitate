@@ -29,7 +29,7 @@ Status ConCenter::LiftH(Person* &p)
 
 Status ConCenter::LiftRun(float t)
 {
-	if (RunOrder[0].head->next && RunOrder[1].head->next)return OK;
+	LiftIni();//对处于待命状态且有状态待完成的电梯初始化
 	if (Lift[0].get_state() == GoingUp) {
 		if (Lift[0].get_Rstate() == preste) {
 			Ltime.utime = t + uptime + prestetime;
@@ -80,6 +80,19 @@ Status ConCenter::LiftRun(float t)
 	return OK;
 }
 
+Status ConCenter::LiftIni(){
+	if(Lift[0].get_state() ==Idle&&Lift[0].get_Ostate() ==WAIT&&(!RunOrder[0].OrderNull())){
+		Lift[0].change_Ostate(RUN);
+		Lift[0].change_state(RunOrder[0].get_arrow());
+		cout<<"1号电梯启动！"<<endl;
+	}
+	if(Lift[1].get_state() ==Idle&&Lift[1].get_Ostate() ==WAIT&&(!RunOrder[1].OrderNull())){
+		Lift[1].change_Ostate(RUN);
+		Lift[1].change_state(RunOrder[1].get_arrow());
+		cout<<"2号电梯启动！"<<endl;
+	}
+	return OK;
+}
 
 int ConCenter::peoinout(LiftStack& S, QueneList& L, int num, float t)
 {
