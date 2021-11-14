@@ -20,7 +20,7 @@ int main() {
 			Co.LiftH(p);
 		}
 		Co.LiftRun(time);
-		//Co.Check_Giveup();
+		Co.CheckOrder();
 		time++;
 	}
 

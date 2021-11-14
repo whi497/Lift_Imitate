@@ -154,6 +154,11 @@ Status LiftROrder::OrderDone()
 	return OK;
 }
 
+int LiftROrder::OrderNull(){
+	if(head->next)return 0;
+	else return 1;
+}
+
 Time::Time()
 {
 	intertime = givetime = utime = dtime = 0;

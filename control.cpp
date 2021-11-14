@@ -114,3 +114,15 @@ int distList_Peo(LiftN& L, Person* &p)
 	return distance;
 }
 
+Status ConCenter::CheckOrder(){
+	if(!RunOrder[0].OrderNull()){
+		if(Lift[0].get_Floor()==RunOrder[0].get_Ofloor()&&Lift[0].get_state()==RunOrder[0].get_arrow()){
+			RunOrder[0].OrderDone();
+		}
+	}
+	if(!RunOrder[1].OrderNull()){
+		if(Lift[1].get_Floor()==RunOrder[1].get_Ofloor()&&Lift[1].get_state()==RunOrder[1].get_arrow()){
+			RunOrder[1].OrderDone();
+		}
+	}
+}

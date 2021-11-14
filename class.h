@@ -84,6 +84,7 @@ struct LiftROrder {
 	int get_Ofloor() { return head->next->F; }
 	Status OrderInsert(int n,int sta);
 	Status OrderDone();
+	int OrderNull();
 };
 
 int CrRandom(int min, int max);

@@ -19,6 +19,7 @@ public:
 	int peoinout(LiftStack& S, QueneList& L, int num, float t);
 	Status LiftH(Person*& p);
 	Status LiftRun(float t);
+	Status CheckOrder();
 };
 
 int distList_Peo(LiftN& L, Person*& p);
