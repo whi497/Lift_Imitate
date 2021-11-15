@@ -2,9 +2,12 @@
 
 Head::Head()
 {
-	front = rear = new QNode;
+	front  = new QNode;
+	rear = new QNode;
 	if (!front)exit(OVERFLOW);
+	if(!rear)exit(OVERFLOW);
 	front->next = NULL;
+	rear->next = NULL;
 }
 
 Status Head::Enquene(Person* &P)
@@ -17,6 +20,7 @@ Status Head::Enquene(Person* &P)
 	if(front->next==NULL){
 		front->next = Ptemp;
 	}
+	cout<<P->ID<<"号乘客已在排队"<<endl;
 	return OK;
 }
 

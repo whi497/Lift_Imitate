@@ -17,7 +17,7 @@ typedef class Head{
 	Pquene rear;
 public:
 	Head();
-	int checknull() { if (front = rear)return 0; else return 1; }
+	int checknull() { if (front->next== NULL)return 0; else return 1; }
 	Status Enquene(Person* &P);
 	Person* Dequene();
 	Status Giveup();

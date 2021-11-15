@@ -23,12 +23,12 @@ Status ConCenter::LiftH(Person* &p)
 {
 	if (distList_Peo(Lift[0], p) <= distList_Peo(Lift[1], p)){
 		RunOrder[0].OrderInsert(p->get_InFloor(), Lift[0].get_Floor());		
-		if(p->get_arrow()!=arrow_conculate(Lift[0].get_Floor(),p->get_InFloor());
+		if(p->get_arrow()!=arrow_conculate(Lift[0].get_Floor(),p->get_InFloor()))
 			RunOrder[0].OrderInsert(p->get_InFloor(),Lift[0].get_Floor(),p->get_arrow());
 	}
 	else{
 		RunOrder[1].OrderInsert(p->get_InFloor(), Lift[1].get_Floor());
-		if(p->get_arrow()!=arrow_conculate(p->get_InFloor(),p->get_OutFloor()))
+		if(p->get_arrow()!=arrow_conculate(Lift[1].get_Floor(),p->get_InFloor()))
 			RunOrder[1].OrderInsert(p->get_InFloor(),Lift[1].get_Floor(),p->get_arrow());
 	}
 	return OK;
@@ -81,7 +81,7 @@ Status ConCenter::LiftRun(float t,int i)
 		switch (Lift[i].waitstate) {
 		case 0: Lift[i].waitstate = 1; Ltime[i].opendotime = t+timeopen; Ltime[i].inouttime = t + timeopen + 1; break;
 		case 1: if (t >= Ltime[i].opendotime) {
-			if (peoinout(Stack[i][Lift[i].get_Floor()], List[Lift[i].get_Floor()][RunOrder[i].get_arrow()], i, t) & (t - Ltime[i].inouttime > 30)) {
+			if (!peoinout(Stack[i][Lift[i].get_Floor()], List[Lift[i].get_Floor()][RunOrder[i].get_arrow()], i, t) && (t - Ltime[i].inouttime >= 1)) {
 				Lift->waitstate = 2;
 				Ltime[i].clodotime = t + closetime;
 				RunOrder[i].OrderDone();
@@ -93,7 +93,9 @@ Status ConCenter::LiftRun(float t,int i)
 				Lift->waitstate = 3;
 			}
 			else {
-				if (RunOrder[i].get_arrow()==Idle||RunOrder[i].get_Ofloor()==Lift[i].get_Floor()){Lift[i].waitstate==1;Ltime[i].inouttime += iotime;}
+				if (RunOrder[i].get_arrow()==Idle||RunOrder[i].get_Ofloor()==Lift[i].get_Floor()){
+					Lift[i].waitstate==1;Ltime[i].inouttime =t + iotime;
+				}
 				else{
 					if (RunOrder[i].get_arrow() == up)Lift[i].change_state(GoingUp);
 					if (RunOrder[i].get_arrow() == down)Lift[i].change_state(GoingDown);

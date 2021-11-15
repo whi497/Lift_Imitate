@@ -124,30 +124,48 @@ Status LiftROrder::OrderInsert(int n,int L,int ar)
 	else{ 
 		if (pfind->next->arrow == up) {
 			while (pfind) {
-				if (pfind->next->arrow == ar)return OK;
-				if (pfind->F<n && pfind->next->F>n) {
+				if(!pfind->next){
 					pHNode p = new H;
-					if(!p)exit(OVERFLOW);
 					p->F = n;
 					p->arrow=ar;
-					p->next = pfind->next;
+					p->next = NULL;
 					pfind->next = p;
 				}
-				else pfind = pfind->next;
+				else{ 
+					if(n==pfind->next->F)return OK;
+					if(n<pfind->next->F) {
+						pHNode p = new H;
+						if(!p)exit(OVERFLOW);
+						p->F = n;
+						p->arrow=ar;
+						p->next = pfind->next;
+						pfind->next = p;
+					}
+					else pfind = pfind->next;
+				}
 			}
 		}
 		if (pfind->arrow == down) {
 			while (pfind) {
-				if (pfind->next->arrow == ar)return OK;
-				if (pfind->F>n && pfind->next->F<n) {
+				if(!pfind->next){
 					pHNode p = new H;
-					if (!p)exit(OVERFLOW);
 					p->F = n;
 					p->arrow=ar;
-					p->next = pfind->next;
+					p->next = NULL;
 					pfind->next = p;
 				}
-				else pfind = pfind->next;
+				else{ 
+					if(n==pfind->next->F)return OK;
+					if(n>pfind->next->F) {
+						pHNode p = new H;
+						if(!p)exit(OVERFLOW);
+						p->F = n;
+						p->arrow=ar;
+						p->next = pfind->next;
+						pfind->next = p;
+					}
+					else pfind = pfind->next;
+				}
 			}
 		}
 	}
