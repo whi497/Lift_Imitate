@@ -23,7 +23,7 @@ Status ConCenter::LiftH(Person* &p)
 {
 	if (distList_Peo(Lift[0], p) <= distList_Peo(Lift[1], p)){
 		RunOrder[0].OrderInsert(p->get_InFloor(), Lift[0].get_Floor());		
-		if(p->get_arrow()!=arrow_conculate(p->get_InFloor(),p->get_OutFloor()))
+		if(p->get_arrow()!=arrow_conculate(Lift[0].get_Floor(),p->get_InFloor());
 			RunOrder[0].OrderInsert(p->get_InFloor(),Lift[0].get_Floor(),p->get_arrow());
 	}
 	else{
