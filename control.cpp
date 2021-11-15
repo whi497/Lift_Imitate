@@ -30,6 +30,7 @@ Status ConCenter::LiftH(Person* &p)
 Status ConCenter::LiftRun(float t,int i)
 {
 	LiftIni();//对处于待命状态且有状态待完成的电梯初始化
+	if(Lift[i].get_Ostate()==WAIT)return OK;
 	if (Lift[i].get_state() == GoingUp) {//执行上升指令
 		if (Lift[i].get_Rstate() == preste) {
 			Ltime[i].utime = t + uptime + prestetime;

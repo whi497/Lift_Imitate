@@ -16,7 +16,7 @@ passanger::passanger(int a,float t)
 	do 
 		OutFloor = CrRandom(0, 4);
     while (OutFloor == InFloor);
-	GiveupTime = t + CrRandom(300, 500) * timewide;
+	GiveupTime = t + CrRandom(30, 50) * timewide;
 	if (OutFloor > InFloor)arrow = up;
 	else arrow = down;
 }
@@ -34,7 +34,7 @@ Person* CrPerson(int i,float &t)
 {
 	Person* per = new Person(i, t);
 	if (!per)exit(OVERFLOW);
-	t = CrRandom(50, 600) * timewide;
+	t += CrRandom(5, 60) * timewide;
 	return per;
 }
 
@@ -47,7 +47,7 @@ LiftN::LiftN()
 	D2 = 0;
 	D3 = 0;
 	State = Idle;
-	Rstate = -1;
+	Rstate = preste;
 	Ostate = WAIT;
 	waitstate = 0;
 	upfloor = 0;
@@ -116,31 +116,45 @@ Status LiftROrder::OrderInsert(int n,int L,int ar)
 		p->arrow = ar;
 		return OK;
 	}
-	while (pfind->next->arrow != ar)pfind = pfind->next;
-	if (pfind->next->arrow == 1) {
-		while (pfind) {
-			if (pfind->next->arrow == ar)return OK;
-			if (pfind->F<n && pfind->next->F>n) {
-				pHNode p = new H;
-				p->F = n;
-				pfind->arrow=ar;
-				p->next = pfind->next;
-				pfind->next = p;
-			}
-			else pfind = pfind->next;
-		}
+	while (pfind->next->arrow != ar ){
+		pfind = pfind->next;
+		if(!pfind->next)break;
 	}
-	if (pfind->arrow == -1) {
-		while (pfind) {
-			if (pfind->next->arrow == ar)return OK;
-			if (pfind->F>n && pfind->next->F<n) {
-			pHNode p = new H;
-			if (!p)exit(OVERFLOW);
-				p->F = n;
-				p->next = pfind->next;
-				pfind->next = p;
+	if(!pfind->next){
+		pHNode p = new H;
+		p->F = n;
+		p->arrow=ar;
+		p->next = NULL;
+		pfind->next = p;
+	}
+	else{ 
+		if (pfind->next->arrow == up) {
+			while (pfind) {
+				if (pfind->next->arrow == ar)return OK;
+				if (pfind->F<n && pfind->next->F>n) {
+					pHNode p = new H;
+					if(!p)exit(OVERFLOW);
+					p->F = n;
+					p->arrow=ar;
+					p->next = pfind->next;
+					pfind->next = p;
+				}
+				else pfind = pfind->next;
 			}
-			else pfind = pfind->next;
+		}
+		if (pfind->arrow == down) {
+			while (pfind) {
+				if (pfind->next->arrow == ar)return OK;
+				if (pfind->F>n && pfind->next->F<n) {
+					pHNode p = new H;
+					if (!p)exit(OVERFLOW);
+					p->F = n;
+					p->arrow=ar;
+					p->next = pfind->next;
+					pfind->next = p;
+				}
+				else pfind = pfind->next;
+			}
 		}
 	}
 	return OK;

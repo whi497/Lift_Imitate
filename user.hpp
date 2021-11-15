@@ -6,7 +6,7 @@
 #define INFEASIBLE -1
 #define OVERFLOW -2
 
-#define timewide 0.1
+#define timewide 1
 #define timego 1
 #define timeopen 2
 #define iotime 1
@@ -18,8 +18,8 @@
 #define up 0
 #define down 1
 //上身下降时间
-#define uptime 3.1
-#define downtime 4.1
+#define uptime 3
+#define downtime 4
 #define prestetime 2
 //运行状态
 #define GoingUp 0
@@ -38,3 +38,8 @@
 #include<time.h>
 using namespace std;
 typedef int Status;
+
+Status printlint(){
+    cout<<"*********************************"<<endl;
+    return OK;
+}
