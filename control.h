@@ -1,5 +1,5 @@
 #pragma once
-#include"user.hpp"
+#include"user.h"
 #include"class.h"
 #include"datatype.h"
 using namespace std;
@@ -20,7 +20,7 @@ public:
 	int peoinout(LiftStack& S, QueneList& L, int num, float t);
 	Status LiftH(Person*& p);
 	Status LiftRun(float t, int i);
-	Status CheckOrder();
+	// Status CheckOrder();
 	Status LiftIni();
 };
 

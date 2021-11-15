@@ -1,4 +1,4 @@
-#include"user.hpp"
+#include"user.h"
 #include"control.h"
 #include"class.h"
 #include"datatype.h"
@@ -21,7 +21,7 @@ int main() {
 		}
 		Co.LiftRun(time, 0);
 		Co.LiftRun(time, 1);
-		Co.CheckOrder();
+		// Co.CheckOrder();
 		time+=1;
 	}
 	cout<<"电梯模拟结束"<<endl;

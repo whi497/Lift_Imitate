@@ -1,9 +1,10 @@
 #pragma once
-#include"user.hpp"
+#include"user.h"
 
 //****************************************************************************************//时间表
-struct Time
+class Time
 {
+public:
 	float intertime;
 	float givetime;
 
@@ -18,6 +19,7 @@ struct Time
 
 	float backtime;
 	Time();
+	Status timeret(){intertime=0;givetime=0;inouttime=0;utime=0;dtime=0;opendotime=0;checdotime=0;backtime=0;return OK;}
 };
 //****************************************************************************************//乘客类
 typedef class passanger {
