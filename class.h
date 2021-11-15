@@ -86,7 +86,7 @@ struct LiftROrder {//指令链表
 	LiftROrder();
 	int get_arrow() { return head->next->arrow; }
 	int get_Ofloor() { return head->next->F; }
-	Status OrderInsert(int n, int L, int ar =-2);//根据楼层方向智能插入指令链表
+	Status OrderInsert(int n, int L = -1, int ar = -2);//根据楼层方向智能插入指令链表
 	Status OrderDone();
 	int OrderNull();
 };
