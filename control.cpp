@@ -156,4 +156,5 @@ Status ConCenter::CheckOrder(){
 			RunOrder[1].OrderDone();
 		}
 	}
+	return OK;
 }

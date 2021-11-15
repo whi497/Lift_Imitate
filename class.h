@@ -1,7 +1,7 @@
 #pragma once
 #include"user.h"
 
-//****************************************************************************************//Ê±¼ä±í
+//****************************************************************************************//æ—¶é—´è¡¨
 struct Time
 {
 	float intertime;
@@ -19,7 +19,7 @@ struct Time
 	float backtime;
 	Time();
 };
-//****************************************************************************************//³Ë¿ÍÀà
+//****************************************************************************************//ä¹˜å®¢ç±»
 typedef class passanger {
 private:
 	int ID;
@@ -42,7 +42,7 @@ public:
 
 Person* CrPerson(int i, float &t);
 
-//****************************************************************************************//µçÌİÀà
+//****************************************************************************************//ç”µæ¢¯ç±»
 class LiftN {
 private:
 	int Floor;
@@ -50,14 +50,14 @@ private:
 	int D2;
 	int D3;
 	int State;
-	int Rstate;//ÉÏÉı»òÏÂ½µÓÃÓÚÅĞ¶Ï¼ÓËÙ¼õËÙÆ½ÎÈÔËĞĞµÄ×´Ì¬
-	int Ostate;//´ı»úÓë·ñ×´Ì¬
+	int Rstate;//ä¸Šå‡æˆ–ä¸‹é™ç”¨äºåˆ¤æ–­åŠ é€Ÿå‡é€Ÿå¹³ç¨³è¿è¡Œçš„çŠ¶æ€
+	int Ostate;//å¾…æœºä¸å¦çŠ¶æ€
 public:
-	int waitstate;//µ½´ïÄ¿µÄÂ¥²ãÔËĞĞ×´Ì¬
-	int upfloor;//½«ÉÏĞĞÄ¿µÄÂ¥²ã
-	int downfloor;//½«ÏÂĞĞÄ¿µÄÂ¥²ã
+	int waitstate;//åˆ°è¾¾ç›®çš„æ¥¼å±‚è¿è¡ŒçŠ¶æ€
+	int upfloor;//å°†ä¸Šè¡Œç›®çš„æ¥¼å±‚
+	int downfloor;//å°†ä¸‹è¡Œç›®çš„æ¥¼å±‚
 	LiftN();
-	//Ë½ÓĞ³ÉÔ±»ñÈ¡ÓëÖÃÊı
+	//ç§æœ‰æˆå‘˜è·å–ä¸ç½®æ•°
 	int get_Floor() { return Floor; }
 	int get_state() { return State; }
 	int get_Rstate() { return Rstate; }
@@ -74,21 +74,21 @@ public:
 	Status Closedoor(); 
 };
 
-typedef struct H {//Ö¸Áî½Úµã
+typedef struct H {//æŒ‡ä»¤èŠ‚ç‚¹
 	int F;
 	int arrow;
 	struct H* next;
 	H();
 }*pHNode;
 
-struct LiftROrder {//Ö¸ÁîÁ´±í
+struct LiftROrder {//æŒ‡ä»¤é“¾è¡¨
 	pHNode head;
 	LiftROrder();
 	int get_arrow() { return head->next->arrow; }
 	int get_Ofloor() { return head->next->F; }
-	Status OrderInsert(int n,int sta);//¸ù¾İÂ¥²ã·½ÏòÖÇÄÜ²åÈëÖ¸ÁîÁ´±í
+	Status OrderInsert(int n,int sta);//æ ¹æ®æ¥¼å±‚æ–¹å‘æ™ºèƒ½æ’å…¥æŒ‡ä»¤é“¾è¡¨
 	Status OrderDone();
 	int OrderNull();
 };
 
-int CrRandom(int min, int max);//Ëæ»úÊıÉú³É
+int CrRandom(int min, int max);//éšæœºæ•°ç”Ÿæˆ

@@ -33,7 +33,7 @@ Person* Head::Dequene()
 
 Status Head::Giveup()
 {
-	printf("µÚ%dºÅ³Ë¿ÍÒÑ·ÅÆú\n", front->next->Pe->ID);
+	printf("ç¬¬%då·ä¹˜å®¢å·²æ”¾å¼ƒ\n", front->next->Pe->ID);
 	Pquene p = front->next;
 	front->next = p->next;
 	delete p;
@@ -59,7 +59,7 @@ Status LiftStack::Push(Person*& P)
 {
 	(*(top++))->p = P;
 	num += 1;
-	printf("µÚ%dºÅ³Ë¿Í½øÈëµçÌİ\n", P->ID);
+	printf("ç¬¬%då·ä¹˜å®¢è¿›å…¥ç”µæ¢¯\n", P->ID);
 	return OK;
 }
 
@@ -67,7 +67,7 @@ Status LiftStack::Pop()
 {
 	if (base == top)return ERROR;
 	--top;
-	printf("µÚ%dºÅ³Ë¿ÍÀë¿ªµçÌİ\n", (*top)->p->ID);
+	printf("ç¬¬%då·ä¹˜å®¢ç¦»å¼€ç”µæ¢¯\n", (*top)->p->ID);
 	return OK;
 }
 

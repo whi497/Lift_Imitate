@@ -6,8 +6,7 @@ using namespace std;
 
 int main() {
 	float time = 0;
-	printf("µçÌİÄ£ÄâÏµÍ³\npress any key to start\n");
-	getchar();
+	printf("ç”µæ¢¯æ¨¡æ‹Ÿç³»ç»Ÿ\nè¯·è¾“å…¥å¾…è¿è¡Œæ—¶é—´ï¼š\n");
 	int i = 0;
 	int MRuningtime=0;
 	ConCenter Co;
@@ -24,6 +23,6 @@ int main() {
 		Co.CheckOrder();
 		time++;
 	}
-	cout<<"µçÌİÄ£Äâ½áÊø"<<endl;
+	cout<<"ç”µæ¢¯æ¨¡æ‹Ÿç»“æŸ"<<endl;
 	return 0;
 }

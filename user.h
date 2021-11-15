@@ -12,20 +12,20 @@
 #define iotime 1
 #define closetime 4
 #define awaittime 30
-//��ʱ
+//超时
 #define timein 1
 #define timeout 0
 #define up 0
 #define down 1
-//
+//上身下降时间
 #define uptime 3.1
 #define downtime 4.1
 #define prestetime 2
-//
+//运行状态
 #define GoingUp 0
 #define GoingDown 1
 #define Idle -1
-//????
+//待机以及上升下降状态
 #define WAIT 0
 #define RUN 1
 #define preste 1
