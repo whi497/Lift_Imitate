@@ -33,8 +33,8 @@ public:
 
 class LiftStack {
 public:
-	NS* base;
-	NS* top;
+	NS base;
+	NS top;
 	int  num;
 	LiftStack();
 	Status Push(Person*& P);

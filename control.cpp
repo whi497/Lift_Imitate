@@ -94,7 +94,7 @@ Status ConCenter::LiftRun(float t,int i)
 			}
 			else {
 				if (RunOrder[i].get_arrow()==Idle||RunOrder[i].get_Ofloor()==Lift[i].get_Floor()){
-					Lift[i].waitstate==1;Ltime[i].inouttime =t + iotime;
+					Lift[i].waitstate=1;Ltime[i].inouttime =t + iotime;
 				}
 				else{
 					if (RunOrder[i].get_arrow() == up)Lift[i].change_state(GoingUp);

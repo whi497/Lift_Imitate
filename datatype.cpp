@@ -53,7 +53,7 @@ waitquene::waitquene()
 
 LiftStack::LiftStack()
 {
-	base = new NS[11];
+	base = new Nstack[11];
 	if (!base)exit(INFEASIBLE);
 	top = base;
 	num = 0;
@@ -61,7 +61,8 @@ LiftStack::LiftStack()
 
 Status LiftStack::Push(Person*& P)
 {
-	(*(top++))->p = P;
+	top->p = P;
+	top++;
 	num += 1;
 	printf("第%d号乘客进入电梯\n", P->ID);
 	return OK;
@@ -71,7 +72,7 @@ Status LiftStack::Pop()
 {
 	if (base == top)return ERROR;
 	--top;
-	printf("第%d号乘客离开电梯\n", (*top)->p->ID);
+	printf("第%d号乘客离开电梯\n", top->p->ID);
 	return OK;
 }
 
