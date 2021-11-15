@@ -4,6 +4,7 @@ Person* ConCenter::peoarrive(int i,float &t)
 {
 	Person* p=NULL;
 	p = CrPerson(i, t);
+	printline();
 	cout<<"第"<<p->get_ID()<<"号乘客将在第"
 	    <<p->get_InFloor()<<"层排队等待乘坐电梯，准备前往第"
 		<<p->get_OutFloor()<<"层楼"<<endl;

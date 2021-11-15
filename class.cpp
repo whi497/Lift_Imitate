@@ -82,12 +82,6 @@ Status LiftN::Closedoor(){
 	return OK;
 }
 
-int CrRandom(int min, int max) {
-	int a;
-	srand((unsigned)time(NULL));
-	a = rand() % (max + 1) + min;
-	return a;
-}
 
 H::H()
 {
@@ -180,8 +174,3 @@ Time::Time()
 	inouttime = 0;
 }
 
-int arrow_conculate(int in, int to){
-	if(in==to) return Idle;
-	else {  if(in>to) return down;
-		 	else return up;  }
-}

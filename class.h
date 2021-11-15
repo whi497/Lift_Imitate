@@ -91,5 +91,4 @@ struct LiftROrder {//指令链表
 	int OrderNull();
 };
 
-int CrRandom(int min, int max);//随机数生成
-int arrow_conculate(int in,int to);//接收初始和目的楼层得到电梯应运行方向
+
