@@ -103,43 +103,55 @@ LiftROrder::LiftROrder()
 }
 
 
-Status LiftROrder::OrderInsert(int n,int ar)
+Status LiftROrder::OrderInsert(int n,int L,int ar)
 {
 	pHNode pfind=head;
-	if (!pfind)exit(OVERFLOW);
-	if (!pfind->next) {
-		pHNode p = new H;
-		p->F = n;
-		p->next = pfind->next;
-		pfind->next = p;
-		p->arrow = ar;
-		return OK;
-	}
-	while (pfind->next->arrow != ar)pfind = pfind->next;
-	if (pfind->next->arrow == 1) {
-		while (pfind) {
-			if (pfind->next->F == ar)return OK;
-			if (pfind->F<n && pfind->next->F>n) {
-				pHNode p = new H;
-				p->F = n;
-				pfind->arrow=ar;
-				p->next = pfind->next;
-				pfind->next = p;
+	if(!pfind)exit(OVERFLOW);
+	if(ar!=-2){
+		if (!pfind->next) {
+			pHNode p = new H;
+			p->F = n;
+			p->next = pfind->next;
+			pfind->next = p;
+			p->arrow = ar;
+			return OK;
+		}
+		while (pfind->next->arrow != ar)pfind = pfind->next;
+		if (pfind->next->arrow == 1) {
+			while (pfind) {
+				if (pfind->next->arrow == ar)return OK;
+				if (pfind->F<n && pfind->next->F>n) {
+					pHNode p = new H;
+					p->F = n;
+					pfind->arrow=ar;
+					p->next = pfind->next;
+					pfind->next = p;
+				}
+				else pfind = pfind->next;
 			}
-			else pfind = pfind->next;
+		}
+		if (pfind->arrow == -1) {
+			while (pfind) {
+				if (pfind->next->arrow == ar)return OK;
+				if (pfind->F>n && pfind->next->F<n) {
+					pHNode p = new H;
+					if (!p)exit(OVERFLOW);
+					p->F = n;
+					p->next = pfind->next;
+					pfind->next = p;
+				}
+				else pfind = pfind->next;
+			}
 		}
 	}
-	if (pfind->arrow == -1) {
-		while (pfind) {
-			if (pfind->next->F == ar)return OK;
-			if (pfind->F>n && pfind->next->F<n) {
-				pHNode p = new H;
-				if (!p)exit(OVERFLOW);
-				p->F = n;
-				p->next = pfind->next;
-				pfind->next = p;
-			}
-			else pfind = pfind->next;
+	else{  
+		if (!pfind->next) {
+			pHNode p = new H;
+			p->F = n;
+			p->next = pfind->next;
+			pfind->next = p;
+			p->arrow = arrow_conculate(L,n);
+			return OK;
 		}
 	}
 	return OK;
@@ -163,4 +175,10 @@ Time::Time()
 	intertime = givetime = utime = dtime = 0;
 	opendotime = checdotime = clodotime = backtime = 0;
 	inouttime = 0;
+}
+
+int arrow_conculate(int in, int to){
+	if(in==to) return Idle;
+	else {  if(in>to) return down;
+		 	else return up;  }
 }

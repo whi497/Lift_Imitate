@@ -21,9 +21,9 @@ Status ConCenter::Inquene(QueneList& L, Person*& p ,int& call)
 Status ConCenter::LiftH(Person* &p)
 {
 	if (distList_Peo(Lift[0], p) <= distList_Peo(Lift[1], p))
-		RunOrder[0].OrderInsert(p->get_InFloor(), p->get_arrow());
+		RunOrder[0].OrderInsert(p->get_InFloor(), Lift[0].get_Floor());
 	else
-		RunOrder[1].OrderInsert(p->get_InFloor(), p->get_arrow());
+		RunOrder[1].OrderInsert(p->get_InFloor(), Lift[1].get_Floor());
 	return OK;
 }
 
@@ -158,3 +158,4 @@ Status ConCenter::CheckOrder(){
 	}
 	return OK;
 }
+
