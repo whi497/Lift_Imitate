@@ -27,6 +27,7 @@
 #define GoingUp 0
 #define GoingDown 1
 #define Idle -1
+#define reset -2
 //待机以及上升下降状态
 #define WAIT 0
 #define RUN 1

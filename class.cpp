@@ -12,6 +12,8 @@ passanger::passanger()
 passanger::passanger(int a,float t)
 {
 	ID = a;
+	// InFloor=4;    //调试使用
+	// OutFloor = 3;
 	InFloor = CrRandom(0,4);
 	do 
 		OutFloor = CrRandom(0, 4);
@@ -34,7 +36,8 @@ Person* CrPerson(int i,float &t)
 {
 	Person* per = new Person(i, t);
 	if (!per)exit(OVERFLOW);
-	t += CrRandom(5, 60) * timewide;
+	t += CrRandom(10, 35) * timewide;
+	// t+= 101;
 	return per;
 }
 
@@ -52,6 +55,21 @@ LiftN::LiftN()
 	waitstate = 0;
 	upfloor = 0;
 	downfloor = 0;
+}
+
+int LiftN::Liftret(int i){ 
+	Floor = 0;
+	D1 = 0;
+	D2 = 0;
+	D3 = 0;
+	State = Idle;
+	Rstate = preste;
+	Ostate = WAIT;
+	waitstate = 0;
+	upfloor = 0;
+	downfloor = 0;
+	cout<<i+1<<"号电梯复位！"<<endl;
+	return 0;
 }
 
 Status LiftN::UpFloor()
@@ -145,7 +163,7 @@ Status LiftROrder::OrderInsert(int n,int L,int ar)
 				}
 			}
 		}
-		if (pfind->arrow == down) {
+		if (pfind->next->arrow == down) {
 			while (pfind) {
 				if(!pfind->next){
 					pHNode p = new H;

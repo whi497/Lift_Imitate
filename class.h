@@ -60,6 +60,7 @@ public:
 	int downfloor;//将下行目的楼层
 	LiftN();
 	//私有成员获取与置数
+	int Liftret(int i);
 	int get_Floor() { return Floor; }
 	int get_state() { return State; }
 	int get_Rstate() { return Rstate; }
@@ -88,6 +89,7 @@ struct LiftROrder {//指令链表
 	LiftROrder();
 	int get_arrow() { return head->next->arrow; }
 	int get_Ofloor() { return head->next->F; }
+	Status change_arrow(int ar){ head->next->arrow = ar; return OK; }
 	Status OrderInsert(int n, int L = -1, int ar = -2);//根据楼层方向智能插入指令链表
 	Status OrderDone();
 	int OrderNull();
