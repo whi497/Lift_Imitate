@@ -25,11 +25,12 @@ Status ConCenter::LiftH()
 	int ar=-1;
 	int u=FindCalluphighest(Lift[0].get_Floor());
 	int d=FindCalldownlowest(Lift[0].get_Floor());
-	if(Lift[0].get_Ostate() ==WAIT&&u==-1&&d==-1)return OK;
-	if(RunOrder[0].OrderNull()&&u==-1&&d==-1){
-		Lift[0].change_state(reset);
-		return OK;
-	}
+	if(Lift[0].get_state()==reset)return OK;
+	if(u==-1&&d==-1)return OK;
+	// if(RunOrder[0].OrderNull()&&u==-1&&d==-1&&Lift[0].waitstate){
+	// 	Lift[0].change_state(reset);
+	// 	return OK;
+	// }
 	if(Lift[0].get_Ostate()==WAIT){
 		Lift[0].change_Ostate(RUN);
 		if(u!=-1){
@@ -43,17 +44,22 @@ Status ConCenter::LiftH()
 	else{
 		if(Lift[0].get_arState()==up){
 			if(RunOrder[0].OrderNull()){
-				if(u = -1)Lift[0].change_arState(down);
+				if(u = -1 || u == Lift[0].get_Floor()){
+					Lift[0].change_arState(down);
+					RunOrder[0].OrderInsert(Lift[0].get_Floor(),down);
+				}
 				else RunOrder[0].OrderInsert(u,up);
 			}
 		}
-		if(Lift[0].get_arState()==down){
+		else {
 			if(RunOrder[0].OrderNull()){
-				if(d!=-1)Lift[0].change_arState(up);
+				if(d = -1 || d == Lift[0].get_Floor()){
+					Lift[0].change_arState(up);
+					RunOrder[0].OrderInsert(Lift[0].get_Floor(),up);
+				}
 				else RunOrder[0].OrderInsert(d,down);
 			}
 		}
-		else{return 0;}
 	}
 	// int u=FindFirCallup();
 	// int d=FindFirCalldown();
@@ -149,12 +155,12 @@ Status ConCenter::LiftRun(float t,int i)
 	if (Lift[i].get_state() == Idle) {//执行电梯在楼层停顿及乘客进出指令
 		switch (Lift[i].waitstate) {
 		case 0: Lift[i].waitstate = 1; Ltime[i].opendotime = t+timeopen; Ltime[i].inouttime = t + timeopen + 1;
-				if(Lift[i].get_Floor()==RunOrder[i].get_Ofloor())RunOrder[i].OrderDone();
 				Call[Lift[i].get_Floor()][Lift[i].get_arState()]=0; break;
 		case 1: if (t >= Ltime[i].opendotime) {
 			if (!peoinout(Stack[i][Lift[i].get_Floor()], List[Lift[i].get_Floor()][Lift[i].get_arState()], i, t) && (t - Ltime[i].inouttime >= 1)) {
 				Lift[i].waitstate = 2;
 				Ltime[i].clodotime = t + closetime;
+				if(Lift[i].get_Floor()==RunOrder[i].get_Ofloor())RunOrder[i].OrderDone();
 			}
 		}break;
 		case 2: if (t >= Ltime[i].clodotime) {
@@ -165,7 +171,7 @@ Status ConCenter::LiftRun(float t,int i)
 			else {
 				if (RunOrder[i].get_Ofloor()==Lift[i].get_Floor()){
 					Lift[i].waitstate=1;Ltime[i].inouttime =t + iotime;
-					RunOrder[i].OrderDone();Call[Lift[i].get_Floor()][Lift[i].get_arState()]==0;
+					Call[Lift[i].get_Floor()][Lift[i].get_arState()]=0;
 				}
 				else{
 					if (RunOrder[i].get_arrow() == up)Lift[i].change_state(GoingUp);
@@ -235,7 +241,7 @@ int ConCenter::peoinout(LiftStack& S, QueneList& L, int i, float t)
 			Person* P=L.Dequene();
 			Stack[i][P->get_OutFloor()].Push(P);
 			cout<<"当前时间为"<<t<<endl;
-			// RunOrder[i].OrderInsert(P->get_OutFloor(), Lift[i].get_Floor(), P->get_arrow());
+			RunOrder[i].OrderInsert(P->get_OutFloor(), P->get_arrow());
 			Ltime[i].inouttime += iotime;
 			check = 1;
 		}

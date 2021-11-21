@@ -6,6 +6,10 @@ using namespace std;
 
 int main() {
 	float time = 0;
+	// for(int i = 0; i <10;i++){
+	// 	time=CrRandom(10,15)*timewide;
+	// 	cout<<time<<endl;
+	// }
 	printf("电梯模拟系统\n请输入待运行时间：\n");
 	int ID = 0;
 	int MRuningtime=0;
@@ -15,7 +19,7 @@ int main() {
 			Co.Call[i][j]=0;
 	}
 	Person* p;
-	cin >> MRuningtime;
+	MRuningtime=200;
 	while (time < MRuningtime) {
 		if (Co.Ctime.intertime == time) {
 			ID++;
