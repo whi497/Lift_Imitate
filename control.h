@@ -22,6 +22,9 @@ public:
 	Status LiftRun(float t, int i);
 	// Status CheckOrder();
 	Status LiftIni();
+	int CheckCall();
+	int FindFirCallup();
+	int FindFirCalldown();
 };
 
 int distList_Peo(LiftN& L, Person*& p);

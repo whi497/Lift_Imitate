@@ -41,33 +41,33 @@ Person* CrPerson(int i,float &t)
 	return per;
 }
 
-
-
 LiftN::LiftN()
 {
 	Floor = 0;
-	D1 = 0;
-	D2 = 0;
-	D3 = 0;
+	// D1 = 0;
+	// D2 = 0;
+	// D3 = 0;
 	State = Idle;
+	arState= up;
 	Rstate = preste;
 	Ostate = WAIT;
 	waitstate = 0;
-	upfloor = 0;
-	downfloor = 0;
+	// upfloor = 0;
+	// downfloor = 0;
 }
 
 int LiftN::Liftret(int i){ 
 	Floor = 0;
-	D1 = 0;
-	D2 = 0;
-	D3 = 0;
+	// D1 = 0;
+	// D2 = 0;
+	// D3 = 0;
 	State = Idle;
+	arState= up;
 	Rstate = preste;
 	Ostate = WAIT;
 	waitstate = 0;
-	upfloor = 0;
-	downfloor = 0;
+	// upfloor = 0;
+	// downfloor = 0;
 	cout<<i+1<<"号电梯复位！"<<endl;
 	return 0;
 }
@@ -115,11 +115,11 @@ LiftROrder::LiftROrder()
 }
 
 
-Status LiftROrder::OrderInsert(int n,int L,int ar)
+Status LiftROrder::OrderInsert(int n,int ar)
 {
 	pHNode pfind=head;
 	if(!pfind)exit(OVERFLOW);
-	if(ar==-2)ar=arrow_conculate(L,n);
+	// if(ar==-2)ar=arrow_conculate(L,n);
 	if (!pfind->next) {
 		pHNode p = new H;
 		p->F = n;
@@ -128,65 +128,65 @@ Status LiftROrder::OrderInsert(int n,int L,int ar)
 		p->arrow = ar;
 		return OK;
 	}
-	while (pfind->next->arrow != ar ){
-		pfind = pfind->next;
-		if(!pfind->next)break;
-	}
-	if(!pfind->next){
-		pHNode p = new H;
-		p->F = n;
-		p->arrow=ar;
-		p->next = NULL;
-		pfind->next = p;
-	}
-	else{ 
-		if (pfind->next->arrow == up) {
-			while (pfind) {
-				if(!pfind->next){
-					pHNode p = new H;
-					p->F = n;
-					p->arrow=ar;
-					p->next = NULL;
-					pfind->next = p;
-				}
-				else{ 
-					if(n==pfind->next->F)return OK;
-					if(n<pfind->next->F) {
-						pHNode p = new H;
-						if(!p)exit(OVERFLOW);
-						p->F = n;
-						p->arrow=ar;
-						p->next = pfind->next;
-						pfind->next = p;
-					}
-					else pfind = pfind->next;
-				}
-			}
-		}
-		if (pfind->next->arrow == down) {
-			while (pfind) {
-				if(!pfind->next){
-					pHNode p = new H;
-					p->F = n;
-					p->arrow=ar;
-					p->next = NULL;
-					pfind->next = p;
-				}
-				else{ 
-					if(n==pfind->next->F)return OK;
-					if(n>pfind->next->F) {
-						pHNode p = new H;
-						if(!p)exit(OVERFLOW);
-						p->F = n;
-						p->arrow=ar;
-						p->next = pfind->next;
-						pfind->next = p;
-					}
-					else pfind = pfind->next;
-				}
-			}
-		}
-	}
+	// while (pfind->next->arrow != ar ){
+	// 	pfind = pfind->next;
+	// 	if(!pfind->next)break;
+	// }
+	// if(!pfind->next){
+	// 	pHNode p = new H;
+	// 	p->F = n;
+	// 	p->arrow=ar;
+	// 	p->next = NULL;
+	// 	pfind->next = p;
+	// }
+	// else{ 
+	// 	if (pfind->next->arrow == up) {
+	// 		while (pfind) {
+	// 			if(!pfind->next){
+	// 				pHNode p = new H;
+	// 				p->F = n;
+	// 				p->arrow=ar;
+	// 				p->next = NULL;
+	// 				pfind->next = p;
+	// 			}
+	// 			else{ 
+	// 				if(n==pfind->next->F)return OK;
+	// 				if(n<pfind->next->F) {
+	// 					pHNode p = new H;
+	// 					if(!p)exit(OVERFLOW);
+	// 					p->F = n;
+	// 					p->arrow=ar;
+	// 					p->next = pfind->next;
+	// 					pfind->next = p;
+	// 				}
+	// 				else pfind = pfind->next;
+	// 			}
+	// 		}
+	// 	}
+	// 	if (pfind->next->arrow == down) {
+	// 		while (pfind) {
+	// 			if(!pfind->next){
+	// 				pHNode p = new H;
+	// 				p->F = n;
+	// 				p->arrow=ar;
+	// 				p->next = NULL;
+	// 				pfind->next = p;
+	// 			}
+	// 			else{ 
+	// 				if(n==pfind->next->F)return OK;
+	// 				if(n>pfind->next->F) {
+	// 					pHNode p = new H;
+	// 					if(!p)exit(OVERFLOW);
+	// 					p->F = n;
+	// 					p->arrow=ar;
+	// 					p->next = pfind->next;
+	// 					pfind->next = p;
+	// 				}
+	// 				else pfind = pfind->next;
+	// 			}
+	// 		}
+	// 	}
+	// }
 	return OK;
 }
 

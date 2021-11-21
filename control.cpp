@@ -21,28 +21,40 @@ Status ConCenter::Inquene(QueneList& L, Person*& p ,int& call)
 
 Status ConCenter::LiftH(Person* &p)
 {
+	int u=FindFirCallup();
+	int d=FindFirCalldown();
 	if (distList_Peo(Lift[0], p) <= distList_Peo(Lift[1], p)){
 		// if(p->get_InFloor()==Lift[0].get_Floor()){RunOrder[0].OrderInsert(p->get_InFloor(),Lift[0].get_Floor(),p->get_arrow());}
 		// else{
-			RunOrder[0].OrderInsert(p->get_InFloor(), Lift[0].get_Floor());		
-			if(p->get_arrow()!=arrow_conculate(Lift[0].get_Floor(),p->get_InFloor()))
-				RunOrder[0].OrderInsert(p->get_InFloor(),Lift[0].get_Floor(),p->get_arrow());
+			// RunOrder[0].OrderInsert(p->get_InFloor(), Lift[0].get_Floor());		
+			// if(p->get_arrow()!=arrow_conculate(Lift[0].get_Floor(),p->get_InFloor()))
+			// 	RunOrder[0].OrderInsert(p->get_InFloor(),Lift[0].get_Floor(),p->get_arrow());
 		// }
+		if(RunOrder[0].OrderNull()){
+			if(Lift[0].get_arState()==up){
+				if(u!=-1&&u>Lift[0].get_Floor()){RunOrder[0].OrderInsert(u,up);}
+				else {
+					if(u!=-1&&u<Lift[0].get_Floor()){
+						if(d!=-1)
+					}
+				}
+			}
+		}
 	}
 	else{
 		// if(p->get_InFloor()==Lift[0].get_Floor()){RunOrder[0].OrderInsert(p->get_InFloor(),Lift[0].get_Floor(),p->get_arrow());}
 		// else{
-			RunOrder[1].OrderInsert(p->get_InFloor(), Lift[1].get_Floor());
-			if(p->get_arrow()!=arrow_conculate(Lift[1].get_Floor(),p->get_InFloor()))
-				RunOrder[1].OrderInsert(p->get_InFloor(),Lift[1].get_Floor(),p->get_arrow());
+		// RunOrder[1].OrderInsert(p->get_InFloor(), Lift[1].get_Floor());
+		// if(p->get_arrow()!=arrow_conculate(Lift[1].get_Floor(),p->get_InFloor()))
+		// 	RunOrder[1].OrderInsert(p->get_InFloor(),Lift[1].get_Floor(),p->get_arrow());
 		// }
 	}
+	LiftIni();//对处于待命状态且有状态待完成的电梯初始化
 	return OK;
 }
 
 Status ConCenter::LiftRun(float t,int i)
 {
-	LiftIni();//对处于待命状态且有状态待完成的电梯初始化
 	if(Lift[i].get_Ostate()==WAIT)return OK;
 	if (Lift[i].get_state() == GoingUp) {//执行上升指令
 		if (Lift[i].get_Rstate() == preste) {
@@ -171,7 +183,7 @@ int ConCenter::peoinout(LiftStack& S, QueneList& L, int i, float t)
 			Person* P=L.Dequene();
 			Stack[i][P->get_OutFloor()].Push(P);
 			cout<<"当前时间为"<<t<<endl;
-			RunOrder[i].OrderInsert(P->get_OutFloor(), Lift[i].get_Floor(), P->get_arrow());
+			// RunOrder[i].OrderInsert(P->get_OutFloor(), Lift[i].get_Floor(), P->get_arrow());
 			Ltime[i].inouttime += iotime;
 			check = 1;
 		}
@@ -207,3 +219,25 @@ int distList_Peo(LiftN& L, Person* &p)
 // 	return OK;
 // }
 
+int ConCenter::CheckCall(){ 
+	for(int j = 0; j < 2; j++){
+		for(int i = 0; i< 5; i++) {
+			if(Call[i][j]==1)return 1;
+		}
+	}
+	return 0;
+}
+
+int ConCenter::FindFirCallup(){ //找到最低的向上楼层
+	for(int i = 0; i < 5; i++){
+		if(Call[i][0]==1)return i;
+	}
+	return -1;
+}
+
+int ConCenter::FindFirCalldown(){ //找到最高的向下楼层
+	for(int i = 4; i >-1; i++){
+		if(Call[i][1]==1)return i;
+	}
+	return -1;
+}
