@@ -18,13 +18,13 @@ public:
 	Person* peoarrive(int i, float& t);
 	Status Inquene(QueneList& L, Person*& p, int& call);
 	int peoinout(LiftStack& S, QueneList& L, int num, float t);
-	Status LiftH(Person*& p);
+	Status LiftH();
 	Status LiftRun(float t, int i);
 	// Status CheckOrder();
 	Status LiftIni();
 	int CheckCall();
-	int FindFirCallup();
-	int FindFirCalldown();
+	int FindCalluphighest(int h);
+	int FindCalldownlowest(int h);
 };
 
 int distList_Peo(LiftN& L, Person*& p);

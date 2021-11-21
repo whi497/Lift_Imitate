@@ -65,10 +65,18 @@ inline Status printline(){//打印事件分割线
     return OK;
 }
 
-inline Status arrow_conculate(int in, int to){
-    if(in==to)return Idle;
-    else{
-        if(in>to)return down;
+// inline Status arrow_conculate(int in, int to){
+//     if(in==to)return Idle;
+//     else{
+//         if(in>to)return down;
+//         else return up;
+//     }
+// }
+
+inline int arrow_conculate(int in, int to){
+    if(in==to) return Idle;
+    else {
+        if(in>to) return down;
         else return up;
     }
 }

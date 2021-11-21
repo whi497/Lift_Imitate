@@ -4,6 +4,7 @@ Person* ConCenter::peoarrive(int i,float &t)
 {
 	Person* p=NULL;
 	p = CrPerson(i, t);
+	Call[p->get_InFloor()][p->get_arrow()]=1;
 	printline();
 	cout<<"第"<<p->get_ID()<<"号乘客将在第"
 	    <<p->get_InFloor()<<"层排队等待乘坐电梯，准备前往第"
@@ -19,37 +20,70 @@ Status ConCenter::Inquene(QueneList& L, Person*& p ,int& call)
 	return OK;
 }
 
-Status ConCenter::LiftH(Person* &p)
+Status ConCenter::LiftH()
 {
-	int u=FindFirCallup();
-	int d=FindFirCalldown();
-	if (distList_Peo(Lift[0], p) <= distList_Peo(Lift[1], p)){
-		// if(p->get_InFloor()==Lift[0].get_Floor()){RunOrder[0].OrderInsert(p->get_InFloor(),Lift[0].get_Floor(),p->get_arrow());}
-		// else{
-			// RunOrder[0].OrderInsert(p->get_InFloor(), Lift[0].get_Floor());		
-			// if(p->get_arrow()!=arrow_conculate(Lift[0].get_Floor(),p->get_InFloor()))
-			// 	RunOrder[0].OrderInsert(p->get_InFloor(),Lift[0].get_Floor(),p->get_arrow());
-		// }
-		if(RunOrder[0].OrderNull()){
-			if(Lift[0].get_arState()==up){
-				if(u!=-1&&u>Lift[0].get_Floor()){RunOrder[0].OrderInsert(u,up);}
-				else {
-					if(u!=-1&&u<Lift[0].get_Floor()){
-						if(d!=-1)
-					}
-				}
-			}
+	int ar=-1;
+	int u=FindCalluphighest(Lift[0].get_Floor());
+	int d=FindCalldownlowest(Lift[0].get_Floor());
+	if(Lift[0].get_Ostate() ==WAIT&&u==-1&&d==-1)return OK;
+	if(RunOrder[0].OrderNull()&&u==-1&&d==-1){
+		Lift[0].change_state(reset);
+		return OK;
+	}
+	if(Lift[0].get_Ostate()==WAIT){
+		Lift[0].change_Ostate(RUN);
+		if(u!=-1){
+			ar=arrow_conculate(0,u);
+			RunOrder[0].OrderInsert(u,ar);
+			Lift[0].change_state(arrow_conculate(0,u));
+			Lift[0].change_arState(up);
 		}
+		cout<<"一号电梯启动！"<<endl;
 	}
 	else{
-		// if(p->get_InFloor()==Lift[0].get_Floor()){RunOrder[0].OrderInsert(p->get_InFloor(),Lift[0].get_Floor(),p->get_arrow());}
-		// else{
-		// RunOrder[1].OrderInsert(p->get_InFloor(), Lift[1].get_Floor());
-		// if(p->get_arrow()!=arrow_conculate(Lift[1].get_Floor(),p->get_InFloor()))
-		// 	RunOrder[1].OrderInsert(p->get_InFloor(),Lift[1].get_Floor(),p->get_arrow());
-		// }
+		if(Lift[0].get_arState()==up){
+			if(RunOrder[0].OrderNull()){
+				if(u = -1)Lift[0].change_arState(down);
+				else RunOrder[0].OrderInsert(u,up);
+			}
+		}
+		if(Lift[0].get_arState()==down){
+			if(RunOrder[0].OrderNull()){
+				if(d!=-1)Lift[0].change_arState(up);
+				else RunOrder[0].OrderInsert(d,down);
+			}
+		}
+		else{return 0;}
 	}
-	LiftIni();//对处于待命状态且有状态待完成的电梯初始化
+	// int u=FindFirCallup();
+	// int d=FindFirCalldown();
+	// if (distList_Peo(Lift[0], p) <= distList_Peo(Lift[1], p)){
+	// 	// if(p->get_InFloor()==Lift[0].get_Floor()){RunOrder[0].OrderInsert(p->get_InFloor(),Lift[0].get_Floor(),p->get_arrow());}
+	// 	// else{
+	// 		// RunOrder[0].OrderInsert(p->get_InFloor(), Lift[0].get_Floor());		
+	// 		// if(p->get_arrow()!=arrow_conculate(Lift[0].get_Floor(),p->get_InFloor()))
+	// 		// 	RunOrder[0].OrderInsert(p->get_InFloor(),Lift[0].get_Floor(),p->get_arrow());
+	// 	// }
+	// 	if(RunOrder[0].OrderNull()){
+	// 		if(Lift[0].get_arState()==up){
+	// 			if(u!=-1&&u>Lift[0].get_Floor()){RunOrder[0].OrderInsert(u,up);}
+	// 			else {
+	// 				if(u!=-1&&u<Lift[0].get_Floor()){
+	// 					if(d!=-1)
+	// 				}
+	// 			}
+	// 		}
+	// 	}
+	// }
+	// else{
+	// 	// if(p->get_InFloor()==Lift[0].get_Floor()){RunOrder[0].OrderInsert(p->get_InFloor(),Lift[0].get_Floor(),p->get_arrow());}
+	// 	// else{
+	// 	// RunOrder[1].OrderInsert(p->get_InFloor(), Lift[1].get_Floor());
+	// 	// if(p->get_arrow()!=arrow_conculate(Lift[1].get_Floor(),p->get_InFloor()))
+	// 	// 	RunOrder[1].OrderInsert(p->get_InFloor(),Lift[1].get_Floor(),p->get_arrow());
+	// 	// }
+	// }
+	// LiftIni();//对处于待命状态且有状态待完成的电梯初始化
 	return OK;
 }
 
@@ -75,6 +109,14 @@ Status ConCenter::LiftRun(float t,int i)
 			Ltime[i].timeret();
 			Lift[i].waitstate = 0;
 		}
+		else{
+			if(Call[Lift[i].get_Floor()][Lift[i].get_arState()]==1){
+				Lift[i].change_state(Idle);
+				Lift[i].change_Rstate(preste);	
+				Ltime[i].timeret();
+				Lift[i].waitstate = 0;
+			}
+		}
 	}
 	if(Lift[i].get_state() == GoingDown) {//执行下降指令
 		if (Lift[i].get_Rstate() == preste) {
@@ -95,25 +137,35 @@ Status ConCenter::LiftRun(float t,int i)
 			Ltime[i].timeret();
 			Lift[i].waitstate = 0;
 		}
+		else{
+			if(Call[Lift[i].get_Floor()][Lift[i].get_arState()]==1){
+				Lift[i].change_state(Idle);
+				Lift[i].change_Rstate(preste);	
+				Ltime[i].timeret();
+				Lift[i].waitstate = 0;
+			}
+		}
 	}
 	if (Lift[i].get_state() == Idle) {//执行电梯在楼层停顿及乘客进出指令
 		switch (Lift[i].waitstate) {
-		case 0: Lift[i].waitstate = 1; Ltime[i].opendotime = t+timeopen; Ltime[i].inouttime = t + timeopen + 1; break;
+		case 0: Lift[i].waitstate = 1; Ltime[i].opendotime = t+timeopen; Ltime[i].inouttime = t + timeopen + 1;
+				if(Lift[i].get_Floor()==RunOrder[i].get_Ofloor())RunOrder[i].OrderDone();
+				Call[Lift[i].get_Floor()][Lift[i].get_arState()]=0; break;
 		case 1: if (t >= Ltime[i].opendotime) {
-			if (!peoinout(Stack[i][Lift[i].get_Floor()], List[Lift[i].get_Floor()][RunOrder[i].get_arrow()], i, t) && (t - Ltime[i].inouttime >= 1)) {
+			if (!peoinout(Stack[i][Lift[i].get_Floor()], List[Lift[i].get_Floor()][Lift[i].get_arState()], i, t) && (t - Ltime[i].inouttime >= 1)) {
 				Lift[i].waitstate = 2;
 				Ltime[i].clodotime = t + closetime;
-				RunOrder[i].OrderDone();
 			}
 		}break;
 		case 2: if (t >= Ltime[i].clodotime) {
-			if (RunOrder[i].head->next == NULL) {
-				Ltime[i].backtime = t + 10;
+			if (RunOrder[i].OrderNull()) {
+				Ltime[i].backtime = t + 5;
 				Lift[i].waitstate = 3;
 			}
 			else {
 				if (RunOrder[i].get_Ofloor()==Lift[i].get_Floor()){
 					Lift[i].waitstate=1;Ltime[i].inouttime =t + iotime;
+					RunOrder[i].OrderDone();Call[Lift[i].get_Floor()][Lift[i].get_arState()]==0;
 				}
 				else{
 					if (RunOrder[i].get_arrow() == up)Lift[i].change_state(GoingUp);
@@ -228,16 +280,27 @@ int ConCenter::CheckCall(){
 	return 0;
 }
 
-int ConCenter::FindFirCallup(){ //找到最低的向上楼层
-	for(int i = 0; i < 5; i++){
-		if(Call[i][0]==1)return i;
+int ConCenter::FindCalluphighest(int h){ //找到最高请求楼层
+	int temp= -1;
+	for(int i = h ; i < 5; i++){
+		for(int j = 0;j<2; j++){
+			if(Call[i][j]==1){ 
+				if(i>temp)temp=i;
+			}
+		}
 	}
-	return -1;
+	return temp;
 }
 
-int ConCenter::FindFirCalldown(){ //找到最高的向下楼层
-	for(int i = 4; i >-1; i++){
-		if(Call[i][1]==1)return i;
+int ConCenter::FindCalldownlowest(int h){ //找到最低请求楼层
+	int temp= -1;
+	for(int i = h ; i >-1; i--){
+		for(int j = 0;j<2; j++){
+			if(Call[i][j]==1){ 
+				temp=h;
+				if(i<temp)temp=i;
+			}
+		}
 	}
-	return -1;
+	return temp;
 }

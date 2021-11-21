@@ -10,6 +10,10 @@ int main() {
 	int ID = 0;
 	int MRuningtime=0;
 	ConCenter Co;
+	for(int j=0;j<2; j++){
+		for(int i=0;i < 5; i++)
+			Co.Call[i][j]=0;
+	}
 	Person* p;
 	cin >> MRuningtime;
 	while (time < MRuningtime) {
@@ -17,10 +21,10 @@ int main() {
 			ID++;
 			p = Co.peoarrive(ID, Co.Ctime.intertime);
             Co.Inquene(Co.List[p->get_InFloor()][p->get_arrow()], p, Co.Call[p->get_InFloor()][p->get_arrow()]);
-			Co.LiftH(p);
 		}
+		Co.LiftH();
 		Co.LiftRun(time, 0);
-		Co.LiftRun(time, 1);
+		// Co.LiftRun(time, 1);
 		// Co.CheckOrder();
 		time+=1;
 	}

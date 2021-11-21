@@ -12,8 +12,8 @@ passanger::passanger()
 passanger::passanger(int a,float t)
 {
 	ID = a;
-	// InFloor=4;    //调试使用
-	// OutFloor = 3;
+	// InFloor=1;    //调试使用
+	// OutFloor = 4;
 	InFloor = CrRandom(0,4);
 	do 
 		OutFloor = CrRandom(0, 4);
@@ -127,6 +127,55 @@ Status LiftROrder::OrderInsert(int n,int ar)
 		pfind->next = p;
 		p->arrow = ar;
 		return OK;
+	}
+	if (pfind->next->arrow == up) {
+		while (pfind) {
+			if(!pfind->next){
+				pHNode p = new H;
+				p->F = n;
+				p->arrow=ar;
+				p->next = NULL;
+				pfind->next = p;
+				break;
+			}
+			else{ 
+				if(n==pfind->next->F)return OK;
+				if(n<pfind->next->F) {
+					pHNode p = new H;
+					if(!p)exit(OVERFLOW);
+					p->F = n;
+					p->arrow=ar;
+					p->next = pfind->next;
+					pfind->next = p;
+				}
+				else pfind = pfind->next;
+			}
+		}
+	}
+	else {
+		while (pfind) {
+			if(!pfind->next){
+				pHNode p = new H;
+				p->F = n;
+				p->arrow=ar;
+				p->next = NULL;
+				pfind->next = p;
+				break;
+			}
+			else{ 
+				if(n==pfind->next->F)return OK;
+				if(n>pfind->next->F) {
+					pHNode p = new H;
+					if(!p)exit(OVERFLOW);
+					p->F = n;
+					p->arrow=ar;
+					p->next = pfind->next;
+					pfind->next = p;
+					break;
+				}
+				else pfind = pfind->next;
+			}
+		}
 	}
 	// while (pfind->next->arrow != ar ){
 	// 	pfind = pfind->next;
