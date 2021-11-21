@@ -179,9 +179,14 @@ int ConCenter::peoinout(LiftStack& S, QueneList& L, int i, float t)
 	return check;
 }
 
+Status ConCenter::peogiveup(){ 
+	
+}
+
 int distList_Peo(LiftN& L, Person* &p)
 {
 	int distance=0;
+	if(L.get_Rstate()==reset)return 100;
 	if (L.get_state() != p->get_arrow())
 		distance = L.get_Floor() + p->get_InFloor();
 	if (L.get_state() == p->get_arrow()) {

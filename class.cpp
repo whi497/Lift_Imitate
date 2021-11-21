@@ -36,12 +36,10 @@ Person* CrPerson(int i,float &t)
 {
 	Person* per = new Person(i, t);
 	if (!per)exit(OVERFLOW);
-	t += CrRandom(10, 35) * timewide;
+	t += CrRandom(15, 30) * timewide;
 	// t+= 101;
 	return per;
 }
-
-
 
 LiftN::LiftN()
 {
