@@ -28,8 +28,8 @@ int main() {
 		}
 		Co.LiftH();
 		Co.LiftRun(time, 0);
+		Co.LiftRun(time, 1);
 		Co.peplgiveup_check(time);
-		// Co.LiftRun(time, 1);
 		// Co.CheckOrder();
 		time+=1;
 	}
