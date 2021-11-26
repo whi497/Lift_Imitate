@@ -249,19 +249,19 @@ int ConCenter::peoinout(LiftStack& S, QueneList& L, int i, float t)
 	return check;
 }
 
-int distList_Peo(LiftN& L, Person* &p)
-{
-	int distance=0;
-	if (L.get_state() != p->get_arrow())
-		distance = L.get_Floor() + p->get_InFloor();
-	if (L.get_state() == p->get_arrow()) {
-		if ((p->get_InFloor()+1 - L.get_Floor()) * p->get_arrow())
-			distance = (p->get_InFloor() - L.get_Floor()) * p->get_arrow();
-		else
-			distance = 8 + (p->get_InFloor() - L.get_Floor()) * p->get_arrow();
-	}
-	return distance;
-}
+// int distList_Peo(LiftN& L, Person* &p)
+// {
+// 	int distance=0;
+// 	if (L.get_state() != p->get_arrow())
+// 		distance = L.get_Floor() + p->get_InFloor();
+// 	if (L.get_state() == p->get_arrow()) {
+// 		if ((p->get_InFloor()+1 - L.get_Floor()) * p->get_arrow())
+// 			distance = (p->get_InFloor() - L.get_Floor()) * p->get_arrow();
+// 		else
+// 			distance = 8 + (p->get_InFloor() - L.get_Floor()) * p->get_arrow();
+// 	}
+// 	return distance;
+// }
 
 // Status ConCenter::CheckOrder(){
 // 	if(!RunOrder[0].OrderNull()){
@@ -309,4 +309,15 @@ int ConCenter::FindCalldownlowest(int h){ //找到最低请求楼层
 		}
 	}
 	return temp;
+}
+
+Status ConCenter::peplgiveup_check(float& t){ 
+	for(int i = 0; i <2;i++){
+		for(int j = 0;j<5; j++){
+			if(Call[i][j]==1){
+				List[i][j].timeout_check(t);
+			}
+		}
+	}
+	return OK;
 }

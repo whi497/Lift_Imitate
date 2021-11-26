@@ -21,6 +21,7 @@ public:
 	Status Enquene(Person* &P);
 	Person* Dequene();
 	Status Giveup();
+	Status timeout_check(float t);
 }QueneList;
 
 

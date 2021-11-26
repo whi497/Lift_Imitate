@@ -35,6 +35,22 @@ Person* Head::Dequene()
 	return P;
 }
 
+Status Head::timeout_check(float t){
+	if(!checknull())return OK;
+	Pquene p=front->next;
+	Pquene ptemp= front;
+	for(;p;p=p->next,ptemp=ptemp->next){
+		if(t>=p->Pe->GiveupTime){
+			ptemp->next = p->next;
+			cout<<"第"<<p->Pe->get_ID()<<"号乘客已放弃"<<endl;
+			free(p);
+			p=ptemp->next;
+			if(p==NULL)break;
+		}
+	}
+	return OK;
+}
+
 Status Head::Giveup()
 {
 	printf("第%d号乘客已放弃\n", front->next->Pe->ID);

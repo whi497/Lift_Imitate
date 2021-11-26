@@ -28,10 +28,12 @@ int main() {
 		}
 		Co.LiftH();
 		Co.LiftRun(time, 0);
+		Co.peplgiveup_check(time);
 		// Co.LiftRun(time, 1);
 		// Co.CheckOrder();
 		time+=1;
 	}
 	cout<<"电梯模拟结束"<<endl;
+	system("pause");
 	return 0;
 }

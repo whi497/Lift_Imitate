@@ -16,6 +16,7 @@ public:
 
 	//ConCenter();
 	Person* peoarrive(int i, float& t);
+	Status peplgiveup_check(float& t);
 	Status Inquene(QueneList& L, Person*& p, int& call);
 	int peoinout(LiftStack& S, QueneList& L, int num, float t);
 	Status LiftH();
@@ -27,4 +28,4 @@ public:
 	int FindCalldownlowest(int h);
 };
 
-int distList_Peo(LiftN& L, Person*& p);
+// int distList_Peo(LiftN& L, Person*& p);
