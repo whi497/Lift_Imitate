@@ -12,9 +12,9 @@ passanger::passanger()
 passanger::passanger(int a,float t)
 {
 	ID = a;
-	InFloor=0;    //调试使用
-	OutFloor = 3;
-	// InFloor = CrRandom(0,4);
+	// InFloor=0;    //调试使用
+	// OutFloor = 3;
+	InFloor = CrRandom(0,4);
 	do 
 		OutFloor = CrRandom(0, 4);
     while (OutFloor == InFloor);
@@ -36,8 +36,8 @@ Person* CrPerson(int i,float &t)
 {
 	Person* per = new Person(i, t);
 	if (!per)exit(OVERFLOW);
-	// t += CrRandom(10, 15) * timewide;
-	t+= 11;
+	t += CrRandom(10, 15) * timewide;
+	// t+= 11;调试使用
 	return per;
 }
 
