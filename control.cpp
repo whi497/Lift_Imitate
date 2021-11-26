@@ -25,42 +25,87 @@ Status ConCenter::LiftH()
 	int ar=-1;
 	int u=FindCalluphighest(Lift[0].get_Floor());
 	int d=FindCalldownlowest(Lift[0].get_Floor());
-	if(Lift[0].get_state()==reset)return OK;
-	if(u==-1&&d==-1)return OK;
-	// if(RunOrder[0].OrderNull()&&u==-1&&d==-1&&Lift[0].waitstate){
-	// 	Lift[0].change_state(reset);
-	// 	return OK;
-	// }
-	if(Lift[0].get_Ostate()==WAIT){
-		Lift[0].change_Ostate(RUN);
-		if(u!=-1){
-			ar=arrow_conculate(0,u);
-			RunOrder[0].OrderInsert(u,ar);
-			Lift[0].change_state(arrow_conculate(0,u));
-			Lift[0].change_arState(up);
-		}
-		cout<<"一号电梯启动！"<<endl;
+	int u1=-1, d1=-1;
+	if(Lift[0].get_arState()==up){
+		u1=FindCalluphighest(Lift[1].get_Floor(),0,Lift[0].get_Floor()-1);
+		d1=FindCalldownlowest(Lift[1].get_Floor(),0,Lift[1].get_Floor()-1);
 	}
 	else{
-		if(Lift[0].get_arState()==up){
-			if(RunOrder[0].OrderNull()){
-				if(u = -1 || u == Lift[0].get_Floor()){
-					Lift[0].change_arState(down);
-					RunOrder[0].OrderInsert(Lift[0].get_Floor(),down);
-				}
-				else RunOrder[0].OrderInsert(u,up);
+		u1=FindCalluphighest(Lift[1].get_Floor(),Lift[0].get_Floor()+1,4);
+		d1=FindCalldownlowest(Lift[1].get_Floor(),Lift[0].get_Floor()+1,4);
+	}
+	if(Lift[0].get_state()!=reset){
+		if(u==-1&&d==-1)return OK;
+		// if(RunOrder[0].OrderNull()&&u==-1&&d==-1&&Lift[0].waitstate){
+		// 	Lift[0].change_state(reset);
+		// 	return OK;
+		// }
+		if(Lift[0].get_Ostate()==WAIT){
+			Lift[0].change_Ostate(RUN);
+			if(u!=-1){
+				ar=arrow_conculate(0,u);
+				RunOrder[0].OrderInsert(u,ar);
+				Lift[0].change_state(arrow_conculate(0,u));
+				Lift[0].change_arState(up);
 			}
+			cout<<"一号电梯启动！"<<endl;
 		}
-		else {
-			if(RunOrder[0].OrderNull()){
-				if(d = -1 || d == Lift[0].get_Floor()){
-					Lift[0].change_arState(up);
-					RunOrder[0].OrderInsert(Lift[0].get_Floor(),up);
+		else{
+			if(Lift[0].get_arState()==up){
+				if(RunOrder[0].OrderNull()){
+					if(u = -1 || u == Lift[0].get_Floor()){
+						Lift[0].change_arState(down);
+						RunOrder[0].OrderInsert(Lift[0].get_Floor(),down);
+					}
+					else RunOrder[0].OrderInsert(u,up);
 				}
-				else RunOrder[0].OrderInsert(d,down);
+			}
+			else {
+				if(RunOrder[0].OrderNull()){
+					if(d = -1 || d == Lift[0].get_Floor()){
+						Lift[0].change_arState(up);
+						RunOrder[0].OrderInsert(Lift[0].get_Floor(),up);
+					}
+					else RunOrder[0].OrderInsert(d,down);
+				}
 			}
 		}
 	}
+	if(Lift[1].get_state()==reset)return OK;
+	else{
+		if(u1==-1&&d1==-1)return OK;
+		if(Lift[1].get_Ostate()==WAIT){
+			Lift[1].change_Ostate(RUN);
+			if(u!=-1){
+				ar=arrow_conculate(0,u1);
+				RunOrder[1].OrderInsert(u1,ar);
+				Lift[1].change_state(arrow_conculate(0,u1));
+				Lift[1].change_arState(up);
+			}
+			cout<<"二号电梯启动！"<<endl;
+		}
+		else{
+			if(Lift[1].get_arState()==up){
+				if(RunOrder[1].OrderNull()){
+					if(u1 = -1 || u1 == Lift[1].get_Floor()){
+						Lift[1].change_arState(down);
+						RunOrder[1].OrderInsert(Lift[0].get_Floor(),down);
+					}
+					else RunOrder[1].OrderInsert(u1,up);
+				}
+			}
+			else {
+				if(RunOrder[1].OrderNull()){
+					if(d1 = -1 || d1 == Lift[1].get_Floor()){
+						Lift[1].change_arState(up);
+						RunOrder[1].OrderInsert(Lift[1].get_Floor(),up);
+					}
+					else RunOrder[1].OrderInsert(d1,down);
+				}
+			}
+		}
+	}
+	
 	// int u=FindFirCallup();
 	// int d=FindFirCalldown();
 	// if (distList_Peo(Lift[0], p) <= distList_Peo(Lift[1], p)){
@@ -286,9 +331,9 @@ int ConCenter::CheckCall(){
 	return 0;
 }
 
-int ConCenter::FindCalluphighest(int h){ //找到最高请求楼层
+int ConCenter::FindCalluphighest(int h,int low,int high){ //找到最高请求楼层
 	int temp= -1;
-	for(int i = h ; i < 5; i++){
+	for(int i = h ; i < high+1; i++){
 		for(int j = 0;j<2; j++){
 			if(Call[i][j]==1){ 
 				if(i>temp)temp=i;
@@ -298,9 +343,9 @@ int ConCenter::FindCalluphighest(int h){ //找到最高请求楼层
 	return temp;
 }
 
-int ConCenter::FindCalldownlowest(int h){ //找到最低请求楼层
+int ConCenter::FindCalldownlowest(int h,int low,int high){ //找到最低请求楼层
 	int temp= -1;
-	for(int i = h ; i >-1; i--){
+	for(int i = h ; i >low-1; i--){
 		for(int j = 0;j<2; j++){
 			if(Call[i][j]==1){ 
 				temp=h;

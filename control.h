@@ -24,8 +24,8 @@ public:
 	// Status CheckOrder();
 	Status LiftIni();
 	int CheckCall();
-	int FindCalluphighest(int h);
-	int FindCalldownlowest(int h);
+	int FindCalluphighest(int h,int low=0,int high=4);
+	int FindCalldownlowest(int h,int low=0,int high=4);
 };
 
 // int distList_Peo(LiftN& L, Person*& p);
