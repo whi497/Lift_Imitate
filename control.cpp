@@ -333,6 +333,7 @@ int ConCenter::CheckCall(){
 
 int ConCenter::FindCalluphighest(int h,int low,int high){ //找到最高请求楼层
 	int temp= -1;
+	if(low>high)return temp;
 	for(int i = h ; i < high+1; i++){
 		for(int j = 0;j<2; j++){
 			if(Call[i][j]==1){ 
@@ -345,6 +346,7 @@ int ConCenter::FindCalluphighest(int h,int low,int high){ //找到最高请求�
 
 int ConCenter::FindCalldownlowest(int h,int low,int high){ //找到最低请求楼层
 	int temp= -1;
+	if(low>high)return temp;
 	for(int i = h ; i >low-1; i--){
 		for(int j = 0;j<2; j++){
 			if(Call[i][j]==1){ 
