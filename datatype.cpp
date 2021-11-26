@@ -43,9 +43,10 @@ Status Head::timeout_check(float t){
 		if(t>=p->Pe->GiveupTime){
 			ptemp->next = p->next;
 			cout<<"第"<<p->Pe->get_ID()<<"号乘客已放弃"<<endl;
+			if(!ptemp)break;
 			free(p);
 			p=ptemp->next;
-			if(p==NULL)break;
+			if(!p)break;
 		}
 	}
 	return OK;
