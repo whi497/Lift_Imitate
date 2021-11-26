@@ -18,7 +18,7 @@ passanger::passanger(int a,float t)
 	do 
 		OutFloor = CrRandom(0, 4);
     while (OutFloor == InFloor);
-	GiveupTime = t + CrRandom(5, 20) * timewide;
+	GiveupTime = t + CrRandom(5, 30) * timewide;
 	if (OutFloor > InFloor)arrow = up;
 	else arrow = down;
 }
