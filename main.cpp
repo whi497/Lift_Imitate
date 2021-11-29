@@ -14,6 +14,7 @@ int main() {
 	int ID = 0;
 	int MRuningtime=0;
 	ConCenter Co;
+	// time==Co.Lift[0].get_Floor();
 	for(int j=0;j<2; j++){
 		for(int i=0;i < 5; i++)
 			Co.Call[i][j]=0;

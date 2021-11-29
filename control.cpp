@@ -53,7 +53,7 @@ Status ConCenter::LiftH()
 		else{
 			if(Lift[0].get_arState()==up){
 				if(RunOrder[0].OrderNull()){
-					if(u = -1 || u == Lift[0].get_Floor()){
+					if(u == -1 || u == Lift[0].get_Floor()){
 						Lift[0].change_arState(down);
 						if(u == Lift[0].get_Floor()){
 						RunOrder[0].OrderInsert(Lift[0].get_Floor(),down);
@@ -64,7 +64,7 @@ Status ConCenter::LiftH()
 			}
 			else {
 				if(RunOrder[0].OrderNull()){
-					if((d = -1) || (d == Lift[0].get_Floor())){
+					if((d == -1) || (d == Lift[0].get_Floor())){
 						Lift[0].change_arState(up);
 						if(d == Lift[0].get_Floor()){
 						RunOrder[0].OrderInsert(Lift[0].get_Floor(),up);
@@ -91,7 +91,7 @@ Status ConCenter::LiftH()
 		else{
 			if(Lift[1].get_arState()==up){
 				if(RunOrder[1].OrderNull()){
-					if(u1 = -1 || u1 == Lift[1].get_Floor()){
+					if(u1 == -1 || u1 == Lift[1].get_Floor()){
 						Lift[1].change_arState(down);
 						if(u1 == Lift[1].get_Floor()){
 						RunOrder[1].OrderInsert(Lift[1].get_Floor(),down);
@@ -102,7 +102,7 @@ Status ConCenter::LiftH()
 			}
 			else {
 				if(RunOrder[1].OrderNull()){
-					if(d1 = -1 || d1 == Lift[1].get_Floor()){
+					if(d1 == -1 || d1 == Lift[1].get_Floor()){
 						Lift[1].change_arState(up);
 						if(d1 == Lift[1].get_Floor()){
 						RunOrder[1].OrderInsert(Lift[1].get_Floor(),up);
