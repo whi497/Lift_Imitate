@@ -55,16 +55,20 @@ Status ConCenter::LiftH()
 				if(RunOrder[0].OrderNull()){
 					if(u = -1 || u == Lift[0].get_Floor()){
 						Lift[0].change_arState(down);
+						if(u == Lift[0].get_Floor()){
 						RunOrder[0].OrderInsert(Lift[0].get_Floor(),down);
+						}
 					}
 					else RunOrder[0].OrderInsert(u,up);
 				}
 			}
 			else {
 				if(RunOrder[0].OrderNull()){
-					if(d = -1 || d == Lift[0].get_Floor()){
+					if((d = -1) || (d == Lift[0].get_Floor())){
 						Lift[0].change_arState(up);
+						if(d == Lift[0].get_Floor()){
 						RunOrder[0].OrderInsert(Lift[0].get_Floor(),up);
+						}
 					}
 					else RunOrder[0].OrderInsert(d,down);
 				}
@@ -89,7 +93,9 @@ Status ConCenter::LiftH()
 				if(RunOrder[1].OrderNull()){
 					if(u1 = -1 || u1 == Lift[1].get_Floor()){
 						Lift[1].change_arState(down);
-						RunOrder[1].OrderInsert(Lift[0].get_Floor(),down);
+						if(u1 == Lift[1].get_Floor()){
+						RunOrder[1].OrderInsert(Lift[1].get_Floor(),down);
+						}
 					}
 					else RunOrder[1].OrderInsert(u1,up);
 				}
@@ -98,7 +104,9 @@ Status ConCenter::LiftH()
 				if(RunOrder[1].OrderNull()){
 					if(d1 = -1 || d1 == Lift[1].get_Floor()){
 						Lift[1].change_arState(up);
+						if(d1 == Lift[1].get_Floor()){
 						RunOrder[1].OrderInsert(Lift[1].get_Floor(),up);
+						}
 					}
 					else RunOrder[1].OrderInsert(d1,down);
 				}
@@ -333,8 +341,11 @@ int ConCenter::CheckCall(){
 
 int ConCenter::FindCalluphighest(int h,int low,int high){ //找到最高请求楼层
 	int temp= -1;
+	int htemp= -1;
 	if(low>high)return temp;
-	for(int i = h ; i < high+1; i++){
+	if(h>=low)htemp=h;
+	else htemp=low;
+	for(int i = htemp ; i < high+1; i++){
 		for(int j = 0;j<2; j++){
 			if(Call[i][j]==1){ 
 				if(i>temp)temp=i;
@@ -346,8 +357,11 @@ int ConCenter::FindCalluphighest(int h,int low,int high){ //找到最高请求�
 
 int ConCenter::FindCalldownlowest(int h,int low,int high){ //找到最低请求楼层
 	int temp= -1;
+	int htemp= -1;
 	if(low>high)return temp;
-	for(int i = h ; i >low-1; i--){
+	if(h<=high)htemp=h;
+	else htemp=high;
+	for(int i = htemp ; i >low-1; i--){
 		for(int j = 0;j<2; j++){
 			if(Call[i][j]==1){ 
 				temp=h;

@@ -62,11 +62,11 @@ public:
 	LiftN();
 	//私有成员获取与置数
 	int Liftret(int i);
-	int get_Floor() { return Floor; }
-	int get_state() { return State; }
-	int get_arState() { return arState;}
-	int get_Rstate() { return Rstate; }
-	int get_Ostate() { return Ostate; }
+	int& get_Floor() { return Floor; }
+	int& get_state() { return State; }
+	int& get_arState() { return arState;}
+	int& get_Rstate() { return Rstate; }
+	int& get_Ostate() { return Ostate; }
 	Status change_state(int s) { State = s; return OK; }
 	Status change_arState(int s) { arState = s; return OK;}
 	Status change_Rstate(int s) { Rstate = s; return OK; }
@@ -90,8 +90,8 @@ typedef struct H {//指令节点
 struct LiftROrder {//指令链表
 	pHNode head;
 	LiftROrder();
-	int get_arrow() { return head->next->arrow; }
-	int get_Ofloor() { return head->next->F; }
+	int& get_arrow() { return head->next->arrow; }
+	int& get_Ofloor() { return head->next->F; }
 	Status change_arrow(int ar){ head->next->arrow = ar; return OK; }
 	Status OrderInsert(int n,int ar );//根据楼层方向智能插入指令链表
 	Status OrderDone();
