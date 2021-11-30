@@ -234,7 +234,7 @@ Status ConCenter::LiftRun(float t,int i)
 			}
 		} break;
 		case 3: if (t == Ltime[i].backtime) {
-			if (Lift[i].get_Floor() == 0){Lift[i].Liftret(i);cout<<"当前时间为"<<t<<endl;}
+			if (Lift[i].get_Floor() == 0){Lift[i].Liftret(i);RunOrder[i].OrderClear();cout<<"当前时间为"<<t<<endl;}
 			if (Lift[i].get_Floor() != 0) {
 				Lift[i].change_state(reset);
 			}
@@ -257,6 +257,7 @@ Status ConCenter::LiftRun(float t,int i)
 		}
 		if (Lift[i].get_Floor() == 0&&Lift[i].get_Rstate()==goingstop) {
 			Lift[i].Liftret(i);
+			RunOrder[i].OrderClear();
 			cout<<"当前时间为"<<t<<endl;
 			Ltime[i].timeret();
 		}
@@ -264,21 +265,21 @@ Status ConCenter::LiftRun(float t,int i)
 	return OK;
 }
 
-Status ConCenter::LiftIni(){
-	if(Lift[0].get_state() ==Idle&&Lift[0].get_Ostate() ==WAIT&&(!RunOrder[0].OrderNull())){
-		Lift[0].change_Ostate(RUN);
-		Lift[0].change_state(RunOrder[0].get_arrow());
-		RunOrder[0].change_arrow(up);
-		cout<<"1号电梯启动！"<<endl;
-	}
-	if(Lift[1].get_state() ==Idle&&Lift[1].get_Ostate() ==WAIT&&(!RunOrder[1].OrderNull())){
-		Lift[1].change_Ostate(RUN);
-		Lift[1].change_state(RunOrder[1].get_arrow());
-		RunOrder[1].change_arrow(up);
-		cout<<"2号电梯启动！"<<endl;
-	}
-	return OK;
-}
+// Status ConCenter::LiftIni(){
+// 	if(Lift[0].get_state() ==Idle&&Lift[0].get_Ostate() ==WAIT&&(!RunOrder[0].OrderNull())){
+// 		Lift[0].change_Ostate(RUN);
+// 		Lift[0].change_state(RunOrder[0].get_arrow());
+// 		RunOrder[0].change_arrow(up);
+// 		cout<<"1号电梯启动！"<<endl;
+// 	}
+// 	if(Lift[1].get_state() ==Idle&&Lift[1].get_Ostate() ==WAIT&&(!RunOrder[1].OrderNull())){
+// 		Lift[1].change_Ostate(RUN);
+// 		Lift[1].change_state(RunOrder[1].get_arrow());
+// 		RunOrder[1].change_arrow(up);
+// 		cout<<"2号电梯启动！"<<endl;
+// 	}
+// 	return OK;
+// }
 
 int ConCenter::peoinout(LiftStack& S, QueneList& L, int i, float t)
 {
@@ -386,15 +387,17 @@ Status ConCenter::peplgiveup_check(float& t){
 Status ConCenter::scerrorO(){ //
 	int ar=-1;
 	if(!RunOrder[0].OrderNull()){
-	ar=arrow_conculate(Lift[0].get_Floor(),RunOrder[0].get_Ofloor());
-	if(ar!=-1&&ar!=RunOrder[0].get_arrow()){
-		RunOrder[0].change_arrow(ar);
-	}
+		ar=arrow_conculate(Lift[0].get_Floor(),RunOrder[0].get_Ofloor());
+		if(ar!=-1&&ar!=RunOrder[0].get_arrow()){
+			RunOrder[0].change_arrow(ar);
+		}
 	}
 	if(!RunOrder[1].OrderNull()){
-	ar=arrow_conculate(Lift[1].get_Floor(),RunOrder[1].get_Ofloor());
-	if(ar!=-1&&ar!=RunOrder[1].get_arrow()){
-		RunOrder[1].change_arrow(ar);
+		ar=arrow_conculate(Lift[1].get_Floor(),RunOrder[1].get_Ofloor());
+		if(ar!=-1&&ar!=RunOrder[1].get_arrow()){
+			RunOrder[1].change_arrow(ar);
+		}
 	}
 	return OK;
 }
+

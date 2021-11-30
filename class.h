@@ -95,6 +95,7 @@ struct LiftROrder {//指令链表
 	Status change_arrow(int ar){ head->next->arrow = ar; return OK; }
 	Status OrderInsert(int n,int ar );//根据楼层方向智能插入指令链表
 	Status OrderDone();
+	Status OrderClear();
 	int OrderNull();
 };
 

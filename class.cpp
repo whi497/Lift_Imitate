@@ -252,6 +252,11 @@ int LiftROrder::OrderNull(){
 	else return 1;
 }
 
+Status LiftROrder::OrderClear(){
+	if(!OrderNull())OrderDone();
+	return OK;
+}
+
 Time::Time()
 {
 	intertime = givetime = utime = dtime = 0;
