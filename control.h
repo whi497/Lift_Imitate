@@ -23,6 +23,7 @@ public:
 	Status LiftRun(float t, int i);
 	// Status CheckOrder();
 	Status LiftIni();
+	Status scerrorO();
 	int CheckCall();
 	int FindCalluphighest(int h,int low=0,int high=4);
 	int FindCalldownlowest(int h,int low=0,int high=4);

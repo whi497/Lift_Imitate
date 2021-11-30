@@ -113,7 +113,6 @@ Status ConCenter::LiftH()
 			}
 		}
 	}
-	
 	// int u=FindFirCallup();
 	// int d=FindFirCalldown();
 	// if (distList_Peo(Lift[0], p) <= distList_Peo(Lift[1], p)){
@@ -143,6 +142,7 @@ Status ConCenter::LiftH()
 	// 	// }
 	// }
 	// LiftIni();//对处于待命状态且有状态待完成的电梯初始化
+	scerrorO();
 	return OK;
 }
 
@@ -379,6 +379,22 @@ Status ConCenter::peplgiveup_check(float& t){
 				List[i][j].timeout_check(t);
 			}
 		}
+	}
+	return OK;
+}
+
+Status ConCenter::scerrorO(){ //
+	int ar=-1;
+	if(!RunOrder[0].OrderNull()){
+	ar=arrow_conculate(Lift[0].get_Floor(),RunOrder[0].get_Ofloor());
+	if(ar!=-1&&ar!=RunOrder[0].get_arrow()){
+		RunOrder[0].change_arrow(ar);
+	}
+	}
+	if(!RunOrder[1].OrderNull()){
+	ar=arrow_conculate(Lift[1].get_Floor(),RunOrder[1].get_Ofloor());
+	if(ar!=-1&&ar!=RunOrder[1].get_arrow()){
+		RunOrder[1].change_arrow(ar);
 	}
 	return OK;
 }
