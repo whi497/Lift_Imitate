@@ -20,7 +20,7 @@ int main() {
 			Co.Call[i][j]=0;
 	}
 	Person* p;
-	MRuningtime=200;
+	cin>>MRuningtime;
 	while (time < MRuningtime) {
 		if (Co.Ctime.intertime == time) {
 			ID++;
