@@ -4,6 +4,8 @@
 #include"datatype.h"
 using namespace std;
 
+extern int tofloor;
+
 class ConCenter {
 public:
 	Time Ltime[2];

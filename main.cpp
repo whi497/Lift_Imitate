@@ -3,6 +3,8 @@
 #include"class.h"
 #include"datatype.h"
 using namespace std;
+int tofloor = 0;
+const int fl;
 
 int main() {
 	float time = 0;
@@ -10,9 +12,12 @@ int main() {
 	// 	time=CrRandom(10,15)*timewide;
 	// 	cout<<time<<endl;
 	// }
-	printf("电梯模拟系统\n请输入待运行时间：\n");
 	int ID = 0;
 	int MRuningtime=0;
+	printf("电梯模拟系统\n请输入待运行时间：\n");
+	cin>>MRuningtime;
+	cout<<"请输入要模拟的楼层数："<<endl;
+	cin>>tofloor;
 	ConCenter Co;
 	// time==Co.Lift[0].get_Floor();
 	for(int j=0;j<2; j++){
@@ -20,7 +25,6 @@ int main() {
 			Co.Call[i][j]=0;
 	}
 	Person* p;
-	cin>>MRuningtime;
 	while (time < MRuningtime) {
 		if (Co.Ctime.intertime == time) {
 			ID++;
