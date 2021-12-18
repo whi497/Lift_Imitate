@@ -23,6 +23,7 @@
 // #define uptime 2
 // #define downtime 3
 // #define prestetime 1
+///**************************************************************************/
 //运行状态
 #define GoingUp 0
 #define GoingDown 1
@@ -35,7 +36,6 @@
 #define steady 0
 #define goingstop  -1
 
-///**************************************************************************///test
 #define timewide 1
 #define timego 1
 #define timeopen 1

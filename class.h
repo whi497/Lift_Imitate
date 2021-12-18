@@ -62,7 +62,6 @@ public:
 	// int upfloor;//将上行目的楼层
 	// int downfloor;//将下行目的楼层
 	LiftN();
-	//私有成员获取与置数
 	int Liftret(int i);
 	int& get_Floor() { return Floor; }
 	int& get_state() { return State; }
@@ -74,12 +73,10 @@ public:
 	Status change_Rstate(int s) { Rstate = s; return OK; }
 	Status change_Ostate(int s) { Ostate = s; return OK; }
 	//
-	Status UpFloor();
-	Status DownFloor();
-	Status Back();
+	Status UpFloor(){Floor++; return OK;}
+	Status DownFloor(){Floor--; return OK;}
+	Status Back(){Floor=0; State=Idle; return OK;}
 	Status Waitin() { State = Idle; return OK; }
-	Status Opendoor();
-	Status Closedoor(); 
 };
 
 typedef struct H {//指令节点

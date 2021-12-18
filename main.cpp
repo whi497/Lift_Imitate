@@ -4,7 +4,6 @@
 #include"datatype.h"
 using namespace std;
 int tofloor = 0;
-const int fl;
 
 int main() {
 	float time = 0;

@@ -14,9 +14,9 @@ passanger::passanger(int a,float t)
 	ID = a;
 	// InFloor=0;    //调试使用
 	// OutFloor = 3;
-	InFloor = CrRandom(0,4);
+	InFloor = CrRandom(0,tofloor-1);
 	do 
-		OutFloor = CrRandom(0, 4);
+		OutFloor = CrRandom(0, tofloor-1);
     while (OutFloor == InFloor);
 	GiveupTime = t + CrRandom(8, 20) * timewide;
 	if (OutFloor > InFloor)arrow = up;
@@ -71,35 +71,6 @@ int LiftN::Liftret(int i){
 	cout<<i+1<<"号电梯复位！"<<endl;
 	return 0;
 }
-
-Status LiftN::UpFloor()
-{
-	Floor++;
-	return OK;
-}
-
-Status LiftN::DownFloor()
-{
-	Floor--;
-	return OK;
-}
-
-Status LiftN::Back()
-{
-	Floor = 0;
-	State = Idle;
-	return OK;
-}
-
-Status LiftN::Opendoor()
-{
-	return OK;
-}
-
-Status LiftN::Closedoor(){
-	return OK;
-}
-
 
 H::H()
 {

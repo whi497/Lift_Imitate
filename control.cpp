@@ -1,5 +1,15 @@
 #include"control.h"
 
+ConCenter::ConCenter(){
+	List = new QueneList* [tofloor];
+	Call = new int* [tofloor];
+	for(int i=0;i<2; i++)Stack[i] = new LiftStack [tofloor];
+	for(int i = 0;i<tofloor;i++){
+		Call[i] = new int [2];
+		List[i] = new QueneList [2];
+	}
+}
+
 Person* ConCenter::peoarrive(int i,float &t)
 {
 	Person* p=NULL;
@@ -31,8 +41,8 @@ Status ConCenter::LiftH()
 		d1=FindCalldownlowest(Lift[1].get_Floor(),0,Lift[1].get_Floor()-1);
 	}
 	else{
-		u1=FindCalluphighest(Lift[1].get_Floor(),Lift[0].get_Floor()+1,4);
-		d1=FindCalldownlowest(Lift[1].get_Floor(),Lift[0].get_Floor()+1,4);
+		u1=FindCalluphighest(Lift[1].get_Floor(),Lift[0].get_Floor()+1,tofloor-1);
+		d1=FindCalldownlowest(Lift[1].get_Floor(),Lift[0].get_Floor()+1,tofloor-1);
 	}
 	if(Lift[0].get_state()!=reset){
 		if(u==-1&&d==-1)return OK;
@@ -333,7 +343,7 @@ int ConCenter::peoinout(LiftStack& S, QueneList& L, int i, float t)
 
 int ConCenter::CheckCall(){ 
 	for(int j = 0; j < 2; j++){
-		for(int i = 0; i< 5; i++) {
+		for(int i = 0; i< tofloor-1; i++) {
 			if(Call[i][j]==1)return 1;
 		}
 	}
@@ -375,7 +385,7 @@ int ConCenter::FindCalldownlowest(int h,int low,int high){ //找到最低请求�
 
 Status ConCenter::peplgiveup_check(float& t){ 
 	for(int i = 0; i <2;i++){
-		for(int j = 0;j<5; j++){
+		for(int j = 0;j<tofloor-1; j++){
 			if(Call[i][j]==1){
 				List[i][j].timeout_check(t);
 			}
