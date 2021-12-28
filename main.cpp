@@ -38,6 +38,5 @@ int main() {
 		time+=1;
 	}
 	cout<<"电梯模拟结束"<<endl;
-	system("pause");
 	return 0;
 }
