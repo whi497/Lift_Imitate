@@ -1,0 +1,3 @@
+/mnt/d/wh030917/Documents/GitHub/Lift_Imitate/build/CMakeFiles/rebuild_cache.dir
+/mnt/d/wh030917/Documents/GitHub/Lift_Imitate/build/CMakeFiles/edit_cache.dir
+/mnt/d/wh030917/Documents/GitHub/Lift_Imitate/build/CMakeFiles/Lift_Imitate.dir

@@ -1,0 +1,1 @@
+/usr/bin/c++     CMakeFiles/Lift_Imitate.dir/src/main.cpp.o CMakeFiles/Lift_Imitate.dir/src/datatype.cpp.o CMakeFiles/Lift_Imitate.dir/src/control.cpp.o CMakeFiles/Lift_Imitate.dir/src/class.cpp.o  -o Lift_Imitate 
