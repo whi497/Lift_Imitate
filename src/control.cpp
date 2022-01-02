@@ -1,4 +1,4 @@
-#include"control.h"
+#include"../include/control.h"
 
 ConCenter::ConCenter(){
 	List = new QueneList* [tofloor];
