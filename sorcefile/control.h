@@ -8,13 +8,13 @@ extern int tofloor;
 
 class ConCenter {
 public:
-	Time Ltime[2];
-	Time Ctime;
-	LiftN Lift[2];
-	QueneList** List;
-	LiftStack* Stack[2];
-	LiftROrder RunOrder[2];
-	int** Call;
+	Time Ltime[2];//电梯事件时间表
+	Time Ctime;//系统时间时间表
+	LiftN Lift[2];//两个电梯
+	QueneList** List;//乘客排队队列
+	LiftStack* Stack[2];//电梯中的乘客栈
+	LiftROrder RunOrder[2];//电梯目的楼层表
+	int** Call;//楼层请求
 
 	ConCenter();
 	Person* peoarrive(int i, float& t);

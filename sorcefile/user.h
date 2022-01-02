@@ -7,23 +7,6 @@
 #define INFEASIBLE -1
 #define OVERFLOW -2
 //时间常量
-// #define timewide 1
-// #define timego 1
-// #define timeopen 2
-// #define iotime 1
-// #define closetime 4
-// #define awaittime 30
-// //超时
-// #define timein 1
-// #define timeout 0
-// //方向
-// #define up 0
-// #define down 1
-// //上身下降时间
-// #define uptime 2
-// #define downtime 3
-// #define prestetime 1
-///**************************************************************************/
 //运行状态
 #define GoingUp 0
 #define GoingDown 1

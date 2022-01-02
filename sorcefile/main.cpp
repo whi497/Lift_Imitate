@@ -17,6 +17,7 @@ int main() {
 	cin>>MRuningtime;
 	cout<<"请输入要模拟的楼层数："<<endl;
 	cin>>tofloor;
+	// system("pause");
 	ConCenter Co;
 	// time==Co.Lift[0].get_Floor();
 	for(int j=0;j<2; j++){

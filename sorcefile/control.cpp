@@ -252,7 +252,7 @@ Status ConCenter::LiftRun(float t,int i)
 		default:exit(ERROR);
 		}
 	}
-	if(Lift[i].get_state() == reset) {
+	if(Lift[i].get_state() == reset) {//执行返回待命请求
 		if (Lift[i].get_Rstate() == preste) {
 			Ltime[i].dtime = t + downtime + prestetime;
 			Lift[i].change_Rstate(steady);

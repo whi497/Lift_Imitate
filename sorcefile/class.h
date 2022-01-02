@@ -7,19 +7,19 @@ extern int tofloor;
 class Time
 {
 public:
-	float intertime;
+	float intertime;//乘客进入放弃记录
 	float givetime;
 
-	float inouttime;
+	float inouttime;//进出时间记录
 
-	float utime;
+	float utime;//上升下降事件记录
 	float dtime;
 
-	float opendotime;
+	float opendotime;//IDLE处理时间记录
 	float checdotime;
 	float clodotime;
 
-	float backtime;
+	float backtime;//电梯久无任务返回时间记录
 	Time();
 	Status timeret(){intertime=0;givetime=0;inouttime=0;utime=0;dtime=0;opendotime=0;checdotime=0;backtime=0;return OK;}
 };

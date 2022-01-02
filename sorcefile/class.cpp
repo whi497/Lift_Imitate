@@ -17,7 +17,7 @@ passanger::passanger(int a,float t)
 	InFloor = CrRandom(0,tofloor-1);
 	do 
 		OutFloor = CrRandom(0, tofloor-1);
-    while (OutFloor == InFloor);
+    while (OutFloor == InFloor);//防止目的楼层与进入楼层相同
 	GiveupTime = t + CrRandom(8, 20) * timewide;
 	if (OutFloor > InFloor)arrow = up;
 	else arrow = down;
